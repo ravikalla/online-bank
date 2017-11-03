@@ -5,6 +5,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,36 +22,40 @@ import in.ravikalla.cloudBank.service.UserService;
 @Controller
 @RequestMapping("/appointment")
 public class AppointmentController {
+	private static final Logger L = LogManager.getLogger(AppointmentController.class);
 
-    @Autowired
-    private AppointmentService appointmentService;
+	@Autowired
+	private AppointmentService appointmentService;
 
-    @Autowired
-    private UserService userService;
+	@Autowired
+	private UserService userService;
 
-    @RequestMapping(value = "/create",method = RequestMethod.GET)
-    public String createAppointment(Model model) {
-        Appointment appointment = new Appointment();
-        model.addAttribute("appointment", appointment);
-        model.addAttribute("dateString", "");
+	@RequestMapping(value = "/create",method = RequestMethod.GET)
+	public String createAppointment(Model model) {
+		L.debug("35 : Start : AppointmentController.createAppointment(...)");
 
-        return "appointment";
-    }
+		Appointment appointment = new Appointment();
+		model.addAttribute("appointment", appointment);
+		model.addAttribute("dateString", "");
 
-    @RequestMapping(value = "/create",method = RequestMethod.POST)
-    public String createAppointmentPost(@ModelAttribute("appointment") Appointment appointment, @ModelAttribute("dateString") String date, Model model, Principal principal) throws ParseException {
+		L.debug("41 : End : AppointmentController.createAppointment(...)");
+		return "appointment";
+	}
 
-        SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd hh:mm");
-        Date d1 = format1.parse( date );
-        appointment.setDate(d1);
+	@RequestMapping(value = "/create",method = RequestMethod.POST)
+	public String createAppointmentPost(@ModelAttribute("appointment") Appointment appointment, @ModelAttribute("dateString") String date, Model model, Principal principal) throws ParseException {
+		L.debug("47 : Start : AppointmentController.createAppointmentPost(...)");
 
-        User user = userService.findByUsername(principal.getName());
-        appointment.setUser(user);
+		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+		Date d1 = format1.parse( date );
+		appointment.setDate(d1);
 
-        appointmentService.createAppointment(appointment);
+		User user = userService.findByUsername(principal.getName());
+		appointment.setUser(user);
 
-        return "redirect:/userFront";
-    }
+		appointmentService.createAppointment(appointment);
 
-
+		L.debug("58 : End : AppointmentController.createAppointmentPost(...)");
+		return "redirect:/userFront";
+	}
 }

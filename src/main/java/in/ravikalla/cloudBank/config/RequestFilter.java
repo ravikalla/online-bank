@@ -8,6 +8,8 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -16,7 +18,10 @@ import org.springframework.stereotype.Component;
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class RequestFilter implements Filter {
 
+	private static final Logger L = LogManager.getLogger(RequestFilter.class);
+
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) {
+//    		L.debug("26 : Start : RequestFilter.doFilter(...)");
         HttpServletResponse response = (HttpServletResponse) res;
         HttpServletRequest request = (HttpServletRequest) req;
 
@@ -40,11 +45,16 @@ public class RequestFilter implements Filter {
                     "access-control-request-headers,access-control-request-method,accept,origin,authorization,x-requested-with");
             response.setStatus(HttpServletResponse.SC_OK);
         }
-
+//        L.debug("50 : End : RequestFilter.doFilter(...)");
     }
 
-    public void init(FilterConfig filterConfig) {}
+    public void init(FilterConfig filterConfig) {
+//	    	L.debug("54 : Start : RequestFilter.init(...)");
+//	    	L.debug("55 : Start : RequestFilter.init(...)");
+    }
 
-    public void destroy() {}
-
+    public void destroy() {
+//	    	L.debug("59 : Start : RequestFilter.destroy(...)");
+//	    	L.debug("60 : Start : RequestFilter.destroy(...)");
+    }
 }

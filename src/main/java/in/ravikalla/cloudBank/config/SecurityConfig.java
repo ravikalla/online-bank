@@ -2,6 +2,8 @@ package in.ravikalla.cloudBank.config;
 
 import java.security.SecureRandom;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,7 +21,7 @@ import in.ravikalla.cloudBank.service.UserServiceImpl.UserSecurityService;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled=true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
+	private static final Logger L = LogManager.getLogger(SecurityConfig.class);
 //    @Autowired
 //    private Environment env;
 
@@ -48,6 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+//    		L.debug("53 : Start : SecurityConfig.configure(...)");
         http
                 .authorizeRequests().
 //                antMatchers("/**").
@@ -61,15 +64,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/index?logout").deleteCookies("remember-me").permitAll()
                 .and()
                 .rememberMe();
+//        L.debug("67 : End : SecurityConfig.configure(...)");
     }
-
-
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+//    		L.debug("72 : Start : SecurityConfig.configureGlobal(...)");
 //    	 auth.inMemoryAuthentication().withUser("user").password("password").roles("USER"); //This is in-memory authentication
         auth.userDetailsService(userSecurityService).passwordEncoder(passwordEncoder());
+//        L.debug("75 : End : SecurityConfig.configureGlobal(...)");
     }
-
-
 }

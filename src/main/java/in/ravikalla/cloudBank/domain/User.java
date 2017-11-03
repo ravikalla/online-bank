@@ -25,7 +25,8 @@ import in.ravikalla.cloudBank.domain.security.UserRole;
 @Entity
 public class User implements UserDetails{
 
-    @Id
+	private static final long serialVersionUID = 2380502806173668567L;
+	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "userId", nullable = false, updatable = false)
     private Long userId;
