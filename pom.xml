@@ -172,7 +172,6 @@
 			<version>4.0.4.RELEASE</version>
 			<scope>test</scope>
 		</dependency>
-<<<<<<< HEAD
 		
 		<!-- H2 database -->
 		<dependency>
@@ -186,8 +185,6 @@
 		    <artifactId>hsqldb</artifactId>
 		    <scope>runtime</scope>
 		</dependency>
-=======
->>>>>>> 15262ff7dafd987fba5b39c0dab751a48ab757e3
 	</dependencies>
 
 	<build>

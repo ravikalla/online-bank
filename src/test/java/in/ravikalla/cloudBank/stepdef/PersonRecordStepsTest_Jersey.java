@@ -1,6 +1,5 @@
 package in.ravikalla.cloudBank.stepdef;
 
-<<<<<<< HEAD
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -11,15 +10,6 @@ import java.io.IOException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-=======
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.junit.Assert;
->>>>>>> 15262ff7dafd987fba5b39c0dab751a48ab757e3
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,17 +18,11 @@ import org.springframework.boot.test.SpringApplicationContextLoader;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.web.WebAppConfiguration;
-<<<<<<< HEAD
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.jayway.restassured.RestAssured;
-=======
-
-import com.jayway.restassured.RestAssured;
-import com.jayway.restassured.response.Response;
->>>>>>> 15262ff7dafd987fba5b39c0dab751a48ab757e3
 
 import cucumber.api.DataTable;
 import cucumber.api.java.Before;
@@ -54,14 +38,11 @@ import in.ravikalla.cloudBank.StartApplication;
 @TestPropertySource("/application.yml")
 public class PersonRecordStepsTest_Jersey implements En {
 
-<<<<<<< HEAD
     @Autowired
     WebApplicationContext context;
     
     MockMvc mockMvc;
   
-=======
->>>>>>> 15262ff7dafd987fba5b39c0dab751a48ab757e3
 	private static final Logger L = LogManager.getLogger(PersonRecordStepsTest_Jersey.class);
 
 	@Value("${local.server.port}")
@@ -73,12 +54,8 @@ public class PersonRecordStepsTest_Jersey implements En {
 
 		MockitoAnnotations.initMocks(this);
 		RestAssured.port = port;
-<<<<<<< HEAD
 		
 		mockMvc = MockMvcBuilders.webAppContextSetup(context).apply(springSecurity()).build();
-=======
-
->>>>>>> 15262ff7dafd987fba5b39c0dab751a48ab757e3
 		L.debug("End : PersonRecordStepsTest_Jersey.setUp()");
 	}
 
@@ -104,7 +81,6 @@ public class PersonRecordStepsTest_Jersey implements En {
 					L.info("Start : PersonRecordStepsTest_Jersey() : delete all persons");
 					L.info("End : PersonRecordStepsTest_Jersey() : delete all persons");
 				});
-<<<<<<< HEAD
 		
 		Given("^get primary account details$", () -> {
 		  L.info("Start : calling service ");
@@ -149,7 +125,5 @@ public class PersonRecordStepsTest_Jersey implements En {
           }
           L.info("End : after calling withdraw service");
         });
-=======
->>>>>>> 15262ff7dafd987fba5b39c0dab751a48ab757e3
 	}
 }

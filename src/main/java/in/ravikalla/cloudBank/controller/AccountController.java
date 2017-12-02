@@ -77,11 +77,8 @@ public class AccountController {
     @RequestMapping(value = "/deposit", method = RequestMethod.POST)
     public String depositPOST(@ModelAttribute("amount") String amount, @ModelAttribute("accountType") String accountType, Principal principal) {
 
-<<<<<<< HEAD
     	L.debug("79 : Start : AccountController.depositPOST(...)");
-=======
-    		L.debug("79 : Start : AccountController.depositPOST(...)");
->>>>>>> 15262ff7dafd987fba5b39c0dab751a48ab757e3
+  		L.debug("79 : Start : AccountController.depositPOST(...)");
         accountService.deposit(accountType, Double.parseDouble(amount), principal);
         L.debug("82 : End : AccountController.depositPOST(...)");
 
