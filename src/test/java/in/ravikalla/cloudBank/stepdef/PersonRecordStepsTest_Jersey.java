@@ -1,12 +1,15 @@
 package in.ravikalla.cloudBank.stepdef;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.junit.Assert;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,9 +18,11 @@ import org.springframework.boot.test.SpringApplicationContextLoader;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
 import com.jayway.restassured.RestAssured;
-import com.jayway.restassured.response.Response;
 
 import cucumber.api.DataTable;
 import cucumber.api.java.Before;
@@ -33,6 +38,11 @@ import in.ravikalla.cloudBank.StartApplication;
 @TestPropertySource("/application.yml")
 public class PersonRecordStepsTest_Jersey implements En {
 
+    @Autowired
+    WebApplicationContext context;
+    
+    MockMvc mockMvc;
+  
 	private static final Logger L = LogManager.getLogger(PersonRecordStepsTest_Jersey.class);
 
 	@Value("${local.server.port}")
@@ -44,7 +54,8 @@ public class PersonRecordStepsTest_Jersey implements En {
 
 		MockitoAnnotations.initMocks(this);
 		RestAssured.port = port;
-
+		
+		mockMvc = MockMvcBuilders.webAppContextSetup(context).apply(springSecurity()).build();
 		L.debug("End : PersonRecordStepsTest_Jersey.setUp()");
 	}
 
@@ -70,5 +81,49 @@ public class PersonRecordStepsTest_Jersey implements En {
 					L.info("Start : PersonRecordStepsTest_Jersey() : delete all persons");
 					L.info("End : PersonRecordStepsTest_Jersey() : delete all persons");
 				});
+		
+		Given("^get primary account details$", () -> {
+		  L.info("Start : calling service ");
+		  try {
+            mockMvc.perform(get("/account/primaryAccount").with(user("Admin").password("password"))).andExpect(status().isOk());
+          } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+          }
+          L.info("End : after calling service");
+		});
+		
+		Given("^get savings account details$", () -> {
+          L.info("Start : calling get saving account service ");
+          try {
+            mockMvc.perform(get("/account/savingsAccount").with(user("Admin").password("password"))).andExpect(status().isOk());
+          } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+          }
+          L.info("End : get saving account service");
+        });
+		
+		Given("^deposit amount$", () -> {
+          L.info("Start : calling deposit service ");
+          try {
+            mockMvc.perform(post("/account/deposit").param("amount", "10").param("accountType", "Primary").with(user("Admin").password("password"))).andExpect(status().is3xxRedirection());
+          } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+          }
+          L.info("End : after calling deposit service");
+        });
+		
+		Given("^withdraw amount$", () -> {
+          L.info("Start : calling withdraw service ");
+          try {
+            mockMvc.perform(post("/account/withdraw").param("amount", "10").param("accountType", "Primary").with(user("Admin").password("password"))).andExpect(status().is3xxRedirection());
+          } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+          }
+          L.info("End : after calling withdraw service");
+        });
 	}
 }
