@@ -14,3 +14,12 @@ The username and password for database: root
 You can login with:
 User - password;
 Admin - password
+
+Deployment Steps:
+=================
+
+ * docker network create --driver bridge cloudbank_network
+ * docker run --detach --name=onlinebanking --net=cloudbank_network --env="MYSQL_ROOT_PASSWORD=root" -p 3306:3306 mysql
+ * 'Run SQL file'
+ * docker build -t ravikalla/cloudbank:v0.1 .
+ * docker run -p 8080:8080 --net=cloudbank_network -v /Users/ravi_kalla/Desktop/Projects/online-bank/src/main/resources:/usr/src -t ravikalla/cloudbank:v0.1
