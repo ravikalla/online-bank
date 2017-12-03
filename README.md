@@ -28,3 +28,6 @@ Admin - password
 #### Application Build and Start using Docker:
  * docker build -t ravikalla/cloudbank:v0.1 .
  * docker run -p 8080:8080 --net=cloudbank_network -v /Users/ravi_kalla/Desktop/Projects/online-bank/src/main/resources:/usr/src -t ravikalla/cloudbank:v0.1
+
+#### Debug H2 DB while testing
+ * Set a debug point in any test step and check the URL "http://localhost:8080/console" while testing
