@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>in.ravikalla</groupId>
-	<artifactId>cloudbank</artifactId>
+	<artifactId>online-bank</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>CloudBank</name>
+	<name>online-bank</name>
 	<description>Online Banking Application</description>
 
 	<parent>
@@ -177,13 +177,14 @@
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
+			<scope>test</scope>
 		</dependency>
 		
 		<!-- HSQL support for testing: depends on spring-boot-starter-data-jpa -->
 		<dependency>
 		    <groupId>org.hsqldb</groupId>
 		    <artifactId>hsqldb</artifactId>
-		    <scope>runtime</scope>
+		    <scope>test</scope>
 		</dependency>
 	</dependencies>
 

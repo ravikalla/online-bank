@@ -36,94 +36,50 @@ import in.ravikalla.cloudBank.StartApplication;
 @WebAppConfiguration
 @IntegrationTest("server.port:0")
 @TestPropertySource("/application.yml")
-public class PersonRecordStepsTest_Jersey implements En {
+public class DepositCheckStep implements En {
 
     @Autowired
     WebApplicationContext context;
     
     MockMvc mockMvc;
   
-	private static final Logger L = LogManager.getLogger(PersonRecordStepsTest_Jersey.class);
+	private static final Logger L = LogManager.getLogger(DepositCheckStep.class);
 
 	@Value("${local.server.port}")
 	private int port;
 
 	@Before
 	public void setup() throws IOException {
-		L.debug("Start : PersonRecordStepsTest_Jersey.setUp()");
+		L.debug("Start : DepositCheckStep.setUp()");
 
 		MockitoAnnotations.initMocks(this);
 		RestAssured.port = port;
 		
 		mockMvc = MockMvcBuilders.webAppContextSetup(context).apply(springSecurity()).build();
-		L.debug("End : PersonRecordStepsTest_Jersey.setUp()");
+		L.debug("End : DepositCheckStep.setUp()");
 	}
 
-	public PersonRecordStepsTest_Jersey() {
-		Given("^Database has no persons for jersey flow$",
-				() -> {
-					L.debug("Start : PersonRecordStepsTest_Jersey() : insert records in DB");
-					L.debug("End : PersonRecordStepsTest_Jersey() : insert records in DB");
-				});
-		And("^User inserted a person information for jersey flow$",
-				(DataTable objDataTable) -> {
-					L.debug("Start : PersonRecordStepsTest_Jersey() : insert records in db");
-					L.debug("End : PersonRecordStepsTest_Jersey() : insert records in db");
-				});
-		Then("^Check if there are \"([^\"]*)\" users in the DB for jersey flow$",
-				(String strUserCount) -> {
-					L.info("Start : PersonRecordStepsTest_Jersey() : check user count in DB for : " + strUserCount);
-					L.info("End : PersonRecordStepsTest_Jersey() : check user count in DB for : " + strUserCount);
-				});
-
-		Given("^Delete all persons from DB in Jersey flow$",
-				() -> {
-					L.info("Start : PersonRecordStepsTest_Jersey() : delete all persons");
-					L.info("End : PersonRecordStepsTest_Jersey() : delete all persons");
-				});
-		
-		Given("^get primary account details$", () -> {
-		  L.info("Start : calling service ");
-		  try {
-            mockMvc.perform(get("/account/primaryAccount").with(user("Admin").password("password"))).andExpect(status().isOk());
-          } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-          }
-          L.info("End : after calling service");
-		});
-		
-		Given("^get savings account details$", () -> {
-          L.info("Start : calling get saving account service ");
-          try {
-            mockMvc.perform(get("/account/savingsAccount").with(user("Admin").password("password"))).andExpect(status().isOk());
-          } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-          }
-          L.info("End : get saving account service");
-        });
-		
+	public DepositCheckStep() {
 		Given("^deposit amount$", () -> {
-          L.info("Start : calling deposit service ");
+          L.info("Start : DepositCheckStep : calling deposit service ");
           try {
             mockMvc.perform(post("/account/deposit").param("amount", "10").param("accountType", "Primary").with(user("Admin").password("password"))).andExpect(status().is3xxRedirection());
           } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
           }
-          L.info("End : after calling deposit service");
+          L.info("End : DepositCheckStep : after calling deposit service");
         });
 		
 		Given("^withdraw amount$", () -> {
-          L.info("Start : calling withdraw service ");
+          L.info("Start : DepositCheckStep : calling withdraw service ");
           try {
             mockMvc.perform(post("/account/withdraw").param("amount", "10").param("accountType", "Primary").with(user("Admin").password("password"))).andExpect(status().is3xxRedirection());
           } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
           }
-          L.info("End : after calling withdraw service");
+          L.info("End : DepositCheckStep : after calling withdraw service");
         });
 	}
 }
