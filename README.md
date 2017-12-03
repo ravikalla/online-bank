@@ -15,11 +15,16 @@ You can login with:
 User - password;
 Admin - password
 
-Deployment Steps:
-=================
+## Deployment Steps:
 
+#### DB Setup:
  * docker network create --driver bridge cloudbank_network
  * docker run --detach --name=onlinebanking --net=cloudbank_network --env="MYSQL_ROOT_PASSWORD=root" -p 3306:3306 mysql
- * 'Run SQL file'
+ * Run "sql_dump/onlinebanking.sql" in above SQL server. (I recomend "MySQLWorkbench" as IDE)
+#### Application Build and Start:
+ * cd online-bank
+ * mvn clean install
+ * java -jar target/cloudbank-0.0.1-SNAPSHOT.jar
+#### Application Build and Start using Docker:
  * docker build -t ravikalla/cloudbank:v0.1 .
  * docker run -p 8080:8080 --net=cloudbank_network -v /Users/ravi_kalla/Desktop/Projects/online-bank/src/main/resources:/usr/src -t ravikalla/cloudbank:v0.1
