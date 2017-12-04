@@ -17,17 +17,12 @@ Admin - password
 
 ## Deployment Steps:
 
-#### DB Setup:
- * docker network create --driver bridge cloudbank_network
- * docker run --detach --name=onlinebanking --net=cloudbank_network --env="MYSQL_ROOT_PASSWORD=root" -p 3306:3306 mysql
- * Run "sql_dump/onlinebanking.sql" in above SQL server. (I recomend "MySQLWorkbench" as IDE)
-#### Application Build and Start:
- * cd online-bank
- * mvn clean install
- * java -jar target/cloudbank-0.0.1-SNAPSHOT.jar
+#### DB Setup using Docker:
+ * docker run --detach --name=bankmysql --env="MYSQL_ROOT_PASSWORD=root" -p 3306:3306 mysql
+ * Run "sql_dump/onlinebanking.sql" in above SQL server. ("MySQLWorkbench" can be used as IDE)
 #### Application Build and Start using Docker:
  * docker build -t ravikalla/cloudbank:v0.1 .
- * docker run -p 8080:8080 --net=cloudbank_network -v /Users/ravi_kalla/Desktop/Projects/online-bank/src/main/resources:/usr/src -t ravikalla/cloudbank:v0.1
+ * docker run --detach -p 8080:8080 --link bankmysql:dbhost -t ravikalla/cloudbank:v0.1
 
 #### Debug H2 DB while testing
  * Set a debug point in any test step and check the URL "http://localhost:8080/console" while testing
