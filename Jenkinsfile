@@ -8,9 +8,10 @@ pipeline {
                checkout scm
             }
         }
-        stage('Run'){
+        stage('Build'){
             steps {
-                echo 'Run'
+                echo 'Building...'
+                mvn clean package
             }
         }
         stage('Deploy') {
