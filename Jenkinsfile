@@ -1,9 +1,9 @@
 pipeline {
     agent any 
-tools{
-maven 'maven 3'
-jdk 'java 8'
-}
+    tools {
+        maven 'maven 3'
+        jdk 'java 8'
+    }
     stages {
         stage ("initialize") {
          steps {
@@ -11,7 +11,8 @@ jdk 'java 8'
             echo "PATH = ${PATH}"
             echo "M2_HOME = ${M2_HOME}"
             '''
-}
+         }
+        }
         stage('Checkout') { 
             steps { 
                echo 'checking out'
