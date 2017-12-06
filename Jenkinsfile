@@ -24,7 +24,7 @@ pipeline {
         stage('Build Docker') {
             steps {
                 echo 'Building Docker image'
-                sh 'docker build -t cloudbank .'
+                sh 'docker build -t ravikalla/cloudbank:v0.1 .'
             }
         }
        stage('Create database ') {
@@ -42,7 +42,7 @@ pipeline {
         stage('Run') {
             steps {
                 echo 'Running Application'
-                sh 'docker run --detach --name=cloudbank -p 9080:8080 --link bankmysql:dbhost -t cloudbank'
+                sh 'docker run --detach --name=cloudbank -p 8080:8080 --link bankmysql:dbhost -t ravikalla/cloudbank:v0.1'
             }
         }
     }
