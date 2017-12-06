@@ -57,7 +57,7 @@ docker build -t ravikalla/cloudbank:v0.1 .
 ```
 ###### Run Docker image of the application
 ```
-docker run --detach -p 8080:8080 --link bankmysql:dbhost -t ravikalla/cloudbank:v0.1
+docker run --detach -p 8080:8080 --link bankmysql:localhost -t ravikalla/cloudbank:v0.1
 ```
 Access the application by clicking the URL "[http://localhost:8080!](http://localhost:8080)"
 #### Application setup with Maven on Docker playground:
