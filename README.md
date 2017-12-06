@@ -6,6 +6,7 @@
 [![Docker Stars](https://img.shields.io/docker/stars/ravikalla/online-bank.svg)](https://hub.docker.com/r/ravikalla/online-bank/)
 [![Docker Pull](https://img.shields.io/docker/pulls/ravikalla/online-bank.svg)](https://hub.docker.com/r/ravikalla/online-bank/)
 [![License](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
+[![Join the chat at https://gitter.im/online-bank-bdd/Lobby](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/online-bank-bdd/Lobby?utm_source=share-link&utm_medium=link&utm_campaign=share-link)
 
 # Online Bank
 Spring Boot/Spring Data/Spring Security/Hibernate/MySQL/REST
