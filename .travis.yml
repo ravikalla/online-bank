@@ -1,6 +1,4 @@
 language: java
-env:
-  - CODACY_PROJECT_TOKEN=3b087146f18048b8b9d3ce8ade8a0610
 jdk:
   - oraclejdk8
 script: mvn clean install
