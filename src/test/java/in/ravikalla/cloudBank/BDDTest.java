@@ -31,8 +31,8 @@ public class BDDTest {
 
   @BeforeClass
   public static void setUp() throws Exception {
-        //l.info("49 : Start : BDDConfigurationTest.setUp()");
-        BDDTest.hoverflyRule.simulate(dsl(
+        L.info("49 : Start : BDDTest.setUp()");
+        BDDTest.hoverflyRule.inSimulationMode(dsl(
         	service("http://localhost:7001")
 	        .get("/bofa/deposit")
 	        .willReturn(

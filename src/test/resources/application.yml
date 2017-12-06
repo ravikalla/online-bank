@@ -1,6 +1,5 @@
 envName: local
-<<<<<<< HEAD
-
+server.port: 8089
 
 # H2
 spring.h2.console.enabled: true
@@ -35,5 +34,3 @@ spring.jpa.properties.hibernate.dialect: org.hibernate.dialect.H2Dialect
 
 # LOG4J Asynchronous logging
 Log4jContextSelector: org.apache.logging.log4j.core.async.AsyncLoggerContextSelector
-=======
->>>>>>> 15262ff7dafd987fba5b39c0dab751a48ab757e3

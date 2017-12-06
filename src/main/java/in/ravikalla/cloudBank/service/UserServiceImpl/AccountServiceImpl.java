@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.Date;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -21,7 +23,9 @@ import in.ravikalla.cloudBank.service.UserService;
 
 @Service
 public class AccountServiceImpl implements AccountService {
-	
+    
+    private static final Logger LOG = LoggerFactory.getLogger(UserSecurityService.class);
+
 	private static int nextAccountNumber = 11223145;
 
     @Autowired
@@ -69,6 +73,10 @@ public class AccountServiceImpl implements AccountService {
             PrimaryTransaction primaryTransaction = new PrimaryTransaction(date, "Deposit to Primary Account", "Account", "Finished", amount, primaryAccount.getAccountBalance(), primaryAccount);
             transactionService.savePrimaryDepositTransaction(primaryTransaction);
             
+            RestTemplate restTemplate = new RestTemplate();
+            String quote = restTemplate.getForObject("http://localhost:7001/bofa/deposit", String.class);
+            LOG.info("bofa online deposit response: "+quote);
+
         } else if (accountType.equalsIgnoreCase("Savings")) {
             SavingsAccount savingsAccount = user.getSavingsAccount();
             savingsAccount.setAccountBalance(savingsAccount.getAccountBalance().add(new BigDecimal(amount)));
