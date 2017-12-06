@@ -21,9 +21,10 @@ pipeline {
                 sh 'mvn clean install -Dmaven.test.skip=true'
             }
         }
-        stage('Deploy') {
+        stage('Build and Run Docker') {
             steps {
-                echo 'make publish'
+                echo 'Building Docker image'
+                sh 'docker build -t online-bank .'
             }
         }
     }
