@@ -42,7 +42,7 @@ pipeline {
         stage('Run') {
             steps {
                 echo 'Running Application'
-                sh 'docker run --detach --name=cloudbank -p 9080:8080 --link bankmysql:dbhost -t cloudbank'
+                sh 'docker run --name=cloudbank -p 9080:8080 --link bankmysql:dbhost -t cloudbank'
             }
         }
     }
