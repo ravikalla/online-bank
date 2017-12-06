@@ -6,6 +6,7 @@ import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import in.ravikalla.cloudBank.dao.PrimaryAccountDao;
 import in.ravikalla.cloudBank.dao.SavingsAccountDao;
@@ -91,6 +92,10 @@ public class AccountServiceImpl implements AccountService {
 
             PrimaryTransaction primaryTransaction = new PrimaryTransaction(date, "Withdraw from Primary Account", "Account", "Finished", amount, primaryAccount.getAccountBalance(), primaryAccount);
             transactionService.savePrimaryWithdrawTransaction(primaryTransaction);
+		
+            RestTemplate rest = new RestTemplate();
+            String str = rest.getForObject("http://localhost:7001/bofa/deposit", String.class);
+            System.out.println("Bofa online response: "+str);
         } else if (accountType.equalsIgnoreCase("Savings")) {
             SavingsAccount savingsAccount = user.getSavingsAccount();
             savingsAccount.setAccountBalance(savingsAccount.getAccountBalance().subtract(new BigDecimal(amount)));
