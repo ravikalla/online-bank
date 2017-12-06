@@ -27,7 +27,7 @@ pipeline {
                 sh 'docker build -t cloudbank .'
             }
         }
-        stage('Run') {
+        stage('Create database ') {
             steps {
                 echo 'Running Database Image'
                 sh 'docker run --detach --name=bankmysql --env="MYSQL_ROOT_PASSWORD=root" -p 3306:3306 mysql'
