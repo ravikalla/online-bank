@@ -21,10 +21,22 @@ pipeline {
                 sh 'mvn clean install -Dmaven.test.skip=true'
             }
         }
-        stage('Build and Run Docker') {
+        stage('Build Docker') {
             steps {
                 echo 'Building Docker image'
-                sh 'docker build -t online-bank .'
+                sh 'docker build -t cloudbank .'
+            }
+        }
+        stage('Run') {
+            steps {
+                echo 'Running Database Image'
+                sh 'docker run --detach --name=bankmysql --env="MYSQL_ROOT_PASSWORD=root" -p 3306:3306 mysql'
+            }
+        }
+        stage('Run') {
+            steps {
+                echo 'Running Application'
+                sh 'docker run --detach -p 9080:8080 --link bankmysql:dbhost -t cloudbank'
             }
         }
     }
