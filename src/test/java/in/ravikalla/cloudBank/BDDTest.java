@@ -16,7 +16,6 @@ import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ActiveProfiles;
-
 import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
 
