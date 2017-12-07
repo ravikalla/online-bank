@@ -1,11 +1,15 @@
 package in.ravikalla.cloudBank;
 
+import static org.mockito.Matchers.startsWith;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import static io.specto.hoverfly.junit.core.SimulationSource.dsl;
 import static io.specto.hoverfly.junit.dsl.HoverflyDsl.service;
 import static io.specto.hoverfly.junit.dsl.ResponseCreators.success;
+
+import io.specto.hoverfly.junit.core.HoverflyConfig;
 import io.specto.hoverfly.junit.rule.HoverflyRule;
 
 import org.junit.BeforeClass;
@@ -27,15 +31,18 @@ public class BDDTest {
   private static final Logger  L = LogManager.getLogger(BDDConfigurationTest.class);
         
   @ClassRule
-  public static HoverflyRule hoverflyRule = HoverflyRule.inSimulationMode();
+  public static HoverflyRule hoverflyRule = HoverflyRule.inCaptureOrSimulationMode("account.json",HoverflyConfig.configs().proxyLocalHost(true));
+  
+  //public static HoverflyRule hoverflyRule = HoverflyRule.inSimulationMode(HoverflyConfig.configs().proxyLocalHost(true));
+  //public static HoverflyRule hoverflyRule = HoverflyRule.inCaptureOrSimulationMode("account.json", HoverflyConfig.configs().proxyLocalHost(true));
 
   @BeforeClass
   public static void setUp() throws Exception {
         L.info("49 : Start : BDDTest.setUp()");
         BDDTest.hoverflyRule.inSimulationMode(dsl(
-        	service("http://localhost:7001")
-	        .get("/bofa/deposit")
+        	service("localhost:7001")
+	        .get(startsWith("/bofa/deposit"))
 	        .willReturn(
-		success("success", "application/text"))));
+		success("deposit success", "text/plain"))), HoverflyConfig.configs().proxyLocalHost(true));
   }
 }
