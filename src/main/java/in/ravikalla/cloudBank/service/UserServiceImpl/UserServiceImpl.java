@@ -73,27 +73,15 @@ public class UserServiceImpl implements UserService {
     }
     
     public boolean checkUserExists(String username, String email){
-        if (checkUsernameExists(username) || checkEmailExists(username)) {
-            return true;
-        } else {
-            return false;
-        }
+        return (checkUsernameExists(username) || checkEmailExists(username));
     }
 
     public boolean checkUsernameExists(String username) {
-        if (null != findByUsername(username)) {
-            return true;
-        }
-
-        return false;
+        return (null != findByUsername(username));
     }
     
     public boolean checkEmailExists(String email) {
-        if (null != findByEmail(email)) {
-            return true;
-        }
-
-        return false;
+        return (null != findByEmail(email));
     }
 
     public User saveUser (User user) {

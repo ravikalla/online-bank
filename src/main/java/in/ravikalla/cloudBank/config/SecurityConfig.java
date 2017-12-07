@@ -22,20 +22,8 @@ import in.ravikalla.cloudBank.service.UserServiceImpl.UserSecurityService;
 @EnableGlobalMethodSecurity(prePostEnabled=true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private static final Logger L = LogManager.getLogger(SecurityConfig.class);
-//    @Autowired
-//    private Environment env;
 
-    @Autowired
-    private UserSecurityService userSecurityService;
-
-    private static final String SALT = "salt"; // Salt should be protected carefully
-
-    @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(12, new SecureRandom(SALT.getBytes()));
-    }
-
-    private static final String[] PUBLIC_MATCHERS = {
+	private static final String[] PUBLIC_MATCHERS = {
             "/webjars/**",
             "/css/**",
             "/js/**",
@@ -48,6 +36,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/signup",
             "/console/**" // Added for H2 DB URL while testing
     };
+
+//    @Autowired
+//    private Environment env;
+
+    @Autowired
+    private UserSecurityService userSecurityService;
+
+    private static final String SALT = "salt"; // Salt should be protected carefully
+
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder(12, new SecureRandom(SALT.getBytes()));
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
