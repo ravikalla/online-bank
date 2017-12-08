@@ -9,6 +9,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -32,6 +33,7 @@ import cucumber.api.java.Before;
 import cucumber.api.java8.En;
 import in.ravikalla.cloudBank.StartApplication;
 import in.ravikalla.cloudBank.domain.SavingsAccount;
+import in.ravikalla.cloudBank.domain.SavingsTransaction;
 import in.ravikalla.cloudBank.utils.UserType;
 
 import static in.ravikalla.cloudBank.util.AppUtil.*;
@@ -121,6 +123,20 @@ public class DepositCheckSavAccStep implements En {
 			}
 			L.debug("End : Remaining balance match");
 		});
+		And("^Check if transaction count of SavingsAccount is greater than 0$", () -> {
+			L.debug("Start : Remaining balance match");
+			try {
+				List<SavingsTransaction> savingsTransactionList = getSavingsTransactionsDetails();
+
+				Assert.assertNotNull("Transactions cant be null", savingsTransactionList);
+				Assert.assertNotNull("Transactions size should be greated than 0", savingsTransactionList.size() > 0);
+				L.debug("Savings Transations size = " + savingsTransactionList.size());
+//				Assert.assertEquals("Account Balance should match", strRemainingAmount, objSavingsAccount.getAccountBalance().toPlainString());
+			} catch (Exception e) {
+				Assert.fail("132 : Couldnt check the initial balance : " + e);
+			}
+			L.debug("End : Remaining balance match");
+		});
 	}
 
 	private SavingsAccount getSavingsAccountDetails() throws Exception {
@@ -133,5 +149,16 @@ public class DepositCheckSavAccStep implements En {
 				.andReturn();
 		SavingsAccount objSavingsAccount = (SavingsAccount) objMvcResult.getModelAndView().getModel().get("savingsAccount");
 		return objSavingsAccount;
+	}
+	private List<SavingsTransaction> getSavingsTransactionsDetails() throws Exception {
+		MvcResult objMvcResult = mockMvc
+				.perform(get(URI_ACC + URI_ACC_SAVINGS).with(user(enumUserType.getUserName()).password(enumUserType.getPWD()))
+//								.contentType(MediaType.APPLICATION_JSON)
+						)
+				.andExpect(model().attributeExists("savingsTransactionList"))
+				.andExpect(view().name("savingsAccount"))
+				.andReturn();
+		List<SavingsTransaction> savingsTransactionList = (List<SavingsTransaction>) objMvcResult.getModelAndView().getModel().get("savingsTransactionList");
+		return savingsTransactionList;
 	}
 }

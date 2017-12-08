@@ -32,6 +32,7 @@ Scenario Outline: Check if lot of money can be deposited in SavingsAccount
 	And Initial balance in Savings account is <InitialBalance>
 	When Deposit money of <DepositAmount> dollars in SavingsAccount
 	Then Check remaining amount <RemainingAmount> dollars in SavingsAccount
+	And Check if transaction count of SavingsAccount is greater than 0 
 
 	Examples:
 		|InitialBalance|DepositAmount   |RemainingAmount    |
