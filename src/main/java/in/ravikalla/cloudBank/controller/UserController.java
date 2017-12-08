@@ -13,16 +13,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import in.ravikalla.cloudBank.domain.User;
 import in.ravikalla.cloudBank.service.UserService;
+import in.ravikalla.cloudBank.util.AppConstants;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping(AppConstants.URI_USER)
 public class UserController {
 	private static final Logger L = LogManager.getLogger(UserController.class);
 
 	@Autowired
 	private UserService userService;
 
-	@RequestMapping(value = "/profile", method = RequestMethod.GET)
+	@RequestMapping(value = AppConstants.URI_USER_PROFILE, method = RequestMethod.GET)
 	public String profile(Principal principal, Model model) {
 		L.debug("27 : Start : UserController.profile(...)");
 
@@ -34,7 +35,7 @@ public class UserController {
 		return "profile";
 	}
 
-	@RequestMapping(value = "/profile", method = RequestMethod.POST)
+	@RequestMapping(value = AppConstants.URI_USER_PROFILE, method = RequestMethod.POST)
 	public String profilePost(@ModelAttribute("user") User newUser, Model model) {
 		L.debug("39 : Start : UserController.profilePost(...)");
 
@@ -53,4 +54,3 @@ public class UserController {
 		return "profile";
 	}
 }
-

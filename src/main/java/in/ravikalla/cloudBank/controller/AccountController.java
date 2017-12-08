@@ -20,10 +20,10 @@ import in.ravikalla.cloudBank.domain.User;
 import in.ravikalla.cloudBank.service.AccountService;
 import in.ravikalla.cloudBank.service.TransactionService;
 import in.ravikalla.cloudBank.service.UserService;
-import in.ravikalla.cloudBank.util.AppUtil;
+import in.ravikalla.cloudBank.util.AppConstants;
 
 @Controller
-@RequestMapping(AppUtil.URI_ACC)
+@RequestMapping(AppConstants.URI_ACC)
 public class AccountController {
 	private static final Logger L = LogManager.getLogger(AccountController.class);
 	
@@ -36,7 +36,7 @@ public class AccountController {
 	@Autowired
 	private TransactionService transactionService;
 	
-	@RequestMapping(AppUtil.URI_ACC_PRIMARY)
+	@RequestMapping(AppConstants.URI_ACC_PRIMARY)
 	public String primaryAccount(Model model, Principal principal) {
 		L.debug("40 : Start : AccountController.primaryAccount(...)");
 
@@ -51,7 +51,7 @@ public class AccountController {
 		return "primaryAccount";
 	}
 
-	@RequestMapping(AppUtil.URI_ACC_SAVINGS)
+	@RequestMapping(AppConstants.URI_ACC_SAVINGS)
     public String savingsAccount(Model model, Principal principal) {
 		L.debug("55 : Start : AccountController.savingsAccount(...)");
 		List<SavingsTransaction> savingsTransactionList = transactionService.findSavingsTransactionList(principal.getName());
@@ -64,7 +64,7 @@ public class AccountController {
         return "savingsAccount";
     }
 
-	@RequestMapping(value = AppUtil.URI_DEPOSIT, method = RequestMethod.GET)
+	@RequestMapping(value = AppConstants.URI_DEPOSIT, method = RequestMethod.GET)
     public String deposit(Model model) {
 		L.debug("68 : Start : AccountController.deposit(...)");
 
@@ -75,7 +75,7 @@ public class AccountController {
         return "deposit";
     }
 
-    @RequestMapping(value = AppUtil.URI_DEPOSIT, method = RequestMethod.POST)
+    @RequestMapping(value = AppConstants.URI_DEPOSIT, method = RequestMethod.POST)
     public String depositPOST(@ModelAttribute("amount") String amount, @ModelAttribute("accountType") String accountType, Principal principal) {
   		L.debug("79 : Start : AccountController.depositPOST(...)");
         accountService.deposit(accountType, Double.parseDouble(amount), principal);
@@ -84,7 +84,7 @@ public class AccountController {
         return "redirect:/userFront";
     }
     
-    @RequestMapping(value = AppUtil.URI_WITHDRAW, method = RequestMethod.GET)
+    @RequestMapping(value = AppConstants.URI_WITHDRAW, method = RequestMethod.GET)
     public String withdraw(Model model) {
 
     		L.debug("89 : Start : AccountController.withdraw(...)");
@@ -95,7 +95,7 @@ public class AccountController {
         return "withdraw";
     }
 
-    @RequestMapping(value = AppUtil.URI_WITHDRAW, method = RequestMethod.POST)
+    @RequestMapping(value = AppConstants.URI_WITHDRAW, method = RequestMethod.POST)
     public String withdrawPOST(@ModelAttribute("amount") String amount, @ModelAttribute("accountType") String accountType, Principal principal) {
     		L.debug("100 : Start : AccountController.withdrawPOST(...)");
         accountService.withdraw(accountType, Double.parseDouble(amount), principal);

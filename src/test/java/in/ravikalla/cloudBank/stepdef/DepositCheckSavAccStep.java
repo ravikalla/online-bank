@@ -36,7 +36,7 @@ import in.ravikalla.cloudBank.domain.SavingsAccount;
 import in.ravikalla.cloudBank.domain.SavingsTransaction;
 import in.ravikalla.cloudBank.utils.UserType;
 
-import static in.ravikalla.cloudBank.util.AppUtil.*;
+import static in.ravikalla.cloudBank.util.AppConstants.*;
 
 @SuppressWarnings("deprecation")
 @ContextConfiguration(classes = { StartApplication.class }, loader = SpringApplicationContextLoader.class)
