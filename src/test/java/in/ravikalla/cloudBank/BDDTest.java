@@ -8,7 +8,7 @@ import cucumber.api.junit.Cucumber;
 @ActiveProfiles("test")
 @RunWith(Cucumber.class)
 @CucumberOptions(features = "classpath:features"
-        , tags = {"@one"}
+        , tags = {"@Regression"}
         , glue={"in.ravikalla.cloudBank.stepdef"}
         , plugin = {"pretty" ,"html:target/cucumber/cucumber-html-report", "json:target/cucumber/cucumber.json" , "junit:target/cucumber/cucumber.xml"}
 )
