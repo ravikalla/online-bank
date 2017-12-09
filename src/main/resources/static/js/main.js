@@ -6,31 +6,31 @@
         }, options);
 
         var control = $(settings.control);
-        var field = $(settings.field)
+        var field = $(settings.field);
 
-        control.bind('click', function () {
-            if (control.is(':checked')) {
-                field.attr('type', 'text');
+        control.bind("click", function () {
+            if (control.is(":checked")) {
+                field.attr("type", "text");
             } else {
-                field.attr('type', 'password');
+                field.attr("type", "password");
             }
         })
     };
 
     $.transferDisplay = function () {
         $("#transferFrom").change(function() {
-            if ($("#transferFrom").val() == 'Primary') {
-                $('#transferTo').val('Savings');
-            } else if ($("#transferFrom").val() == 'Savings') {
-                $('#transferTo').val('Primary');
+            if ($("#transferFrom").val() == "Primary") {
+                $("#transferTo").val("Savings");
+            } else if ($("#transferFrom").val() == "Savings") {
+                $("#transferTo").val("Primary");
             }
         });
 
         $("#transferTo").change(function() {
-            if ($("#transferTo").val() == 'Primary') {
-                $('#transferFrom').val('Savings');
-            } else if ($("#transferTo").val() == 'Savings') {
-                $('#transferFrom').val('Primary');
+            if ($("#transferTo").val() == "Primary") {
+                $("#transferFrom").val("Savings");
+            } else if ($("#transferTo").val() == "Savings") {
+                $("#transferFrom").val("Primary");
             }
         });
     };
@@ -46,15 +46,15 @@ $(document).ready(function() {
             message: "Do you really want to schedule this appointment?",
             buttons: {
                 cancel: {
-                    label: '<i class="fa fa-times"></i> Cancel'
+                    label: "<i class="fa fa-times"></i> Cancel"
                 },
                 confirm: {
-                    label: '<i class="fa fa-check"></i> Confirm'
+                    label: "<i class="fa fa-check"></i> Confirm"
                 }
             },
             callback: function (result) {
                 if (result == true) {
-                    $('#appointmentForm').submit();
+                    $("#appointmentForm").submit();
                 } else {
                     console.log("Scheduling cancelled.");
                 }
@@ -63,7 +63,7 @@ $(document).ready(function() {
     };
 
     $.toggleShowPassword({
-        field: '#password',
+        field: "#password",
         control: "#showPassword"
     });
 
@@ -77,7 +77,7 @@ $(document).ready(function() {
         minuteStep: 10
     });
 
-    $('#submitAppointment').click(function () {
+    $("#submitAppointment").click(function () {
         confirm();
     });
 
