@@ -84,16 +84,18 @@ public class AccountServiceImpl implements AccountService {
             Date date = new Date();
             SavingsTransaction savingsTransaction = new SavingsTransaction(date, "Deposit to savings Account", "Account", "Finished", amount, savingsAccount.getAccountBalance(), savingsAccount);
             transactionService.saveSavingsDepositTransaction(savingsTransaction);
+            
+            callBofaDeposit();
         }
     }
     
     private void callBofaDeposit(){
-       try{ 
-          RestTemplate rest = new RestTemplate();
-          String quote = rest.getForObject("http://localhost:7001/bofa/deposit", String.class);
-          LOG.info("bofa online deposit response: "+quote);
-      } catch(RestClientException e){
-        System.err.println("Rest call to Bofa-online deposit service failed.");
+      try {
+        RestTemplate rest = new RestTemplate();
+        String quote = rest.getForObject("http://localhost:7001/bofa/deposit", String.class);
+        LOG.info("bofa online deposit response: " + quote);
+      } catch (RestClientException e) {
+        LOG.error("Rest call to Bofa-online deposit service failed.");
       }
     }
     
@@ -120,6 +122,8 @@ public class AccountServiceImpl implements AccountService {
             Date date = new Date();
             SavingsTransaction savingsTransaction = new SavingsTransaction(date, "Withdraw from savings Account", "Account", "Finished", amount, savingsAccount.getAccountBalance(), savingsAccount);
             transactionService.saveSavingsWithdrawTransaction(savingsTransaction);
+            
+            callBofaWithdraw();
         }
     }
 
@@ -128,9 +132,9 @@ public class AccountServiceImpl implements AccountService {
       try{
         RestTemplate rest = new RestTemplate();
         String str = rest.getForObject("http://localhost:7001/bofa/withdraw", String.class);
-        System.out.println("Bofa online response: "+str);
+        LOG.info("Bofa online response: "+str);
       } catch(RestClientException e){
-        System.err.println("Rest call to Bofa-online withdraw service failed.");
+        LOG.error("Rest call to Bofa-online withdraw service failed.");
       }
     }
     

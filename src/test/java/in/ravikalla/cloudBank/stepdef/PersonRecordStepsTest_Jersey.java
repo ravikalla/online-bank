@@ -87,7 +87,6 @@ public class PersonRecordStepsTest_Jersey implements En {
 		  try {
             mockMvc.perform(get("/account/primaryAccount").with(user("Admin").password("password"))).andExpect(status().isOk());
           } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
           }
           L.info("End : after calling service");
@@ -109,7 +108,6 @@ public class PersonRecordStepsTest_Jersey implements En {
           try {
             mockMvc.perform(post("/account/deposit").param("amount", "10").param("accountType", "Primary").with(user("Admin").password("password"))).andExpect(status().is3xxRedirection());
           } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
           }
           L.info("End : after calling deposit service");
@@ -120,7 +118,6 @@ public class PersonRecordStepsTest_Jersey implements En {
           try {
             mockMvc.perform(post("/account/withdraw").param("amount", "10").param("accountType", "Primary").with(user("Admin").password("password"))).andExpect(status().is3xxRedirection());
           } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
           }
           L.info("End : after calling withdraw service");
