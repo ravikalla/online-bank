@@ -2,6 +2,8 @@ package in.ravikalla.cloudBank;
 
 import static org.mockito.Matchers.startsWith;
 
+import java.io.File;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -12,6 +14,7 @@ import static io.specto.hoverfly.junit.dsl.ResponseCreators.success;
 import io.specto.hoverfly.junit.core.HoverflyConfig;
 import io.specto.hoverfly.junit.rule.HoverflyRule;
 
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.apache.logging.log4j.LogManager;
@@ -19,6 +22,9 @@ import org.apache.logging.log4j.Logger;
 import org.junit.ClassRule;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ActiveProfiles;
+
+import com.cucumber.listener.Reporter;
+
 import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
 import in.ravikalla.cloudBank.service.UserServiceImpl.AccountServiceImpl;
@@ -32,8 +38,9 @@ import static in.ravikalla.cloudBank.util.AppConstants.*;
 @CucumberOptions(features = "classpath:features"
         , tags = {"@Regression"}
         , glue={"in.ravikalla.cloudBank.stepdef"}
-        , plugin = {"pretty" ,"html:target/cucumber/cucumber-html-report", "json:target/cucumber/cucumber.json" , "junit:target/cucumber/cucumber.xml"}
-)
+		, plugin = { "pretty", "html:target/cucumber/cucumber-html-report", "json:target/cucumber/cucumber.json",
+				"junit:target/cucumber/cucumber.xml",
+				"com.cucumber.listener.ExtentCucumberFormatter:target/extent-report.html" })
 public class BDDTest {
 	private static final Logger L = LogManager.getLogger(BDDTest.class);
 
@@ -53,5 +60,13 @@ public class BDDTest {
 				.get(startsWith(EXTERNAL_BANK_URL_WITHDRAW))
 					.willReturn(
 						success("withdraw success", "text/plain"))), HoverflyConfig.configs().proxyLocalHost(true));
-		}
+	}
+
+	@AfterClass
+    public static void teardown() {
+        Reporter.loadXMLConfig(new File("src/test/resources/extent-config.xml"));
+        Reporter.setSystemInfo("user", System.getProperty("user.name"));
+        Reporter.setSystemInfo("os", "Mac OSX");
+        Reporter.setTestRunnerOutput("Sample test runner output message");
+    }
 }

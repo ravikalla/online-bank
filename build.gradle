@@ -1,0 +1,67 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.9.RELEASE")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'maven'
+
+group = 'in.ravikalla'
+version = '0.0.1-SNAPSHOT'
+
+description = "online-bank"
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+tasks.withType(JavaCompile) {
+	options.encoding = 'UTF-8'
+}
+
+
+
+repositories {
+     maven { url "http://repo.spring.io/libs-release" }
+     maven { url "http://repo.maven.apache.org/maven2" }
+}
+dependencies {
+    compile(group: 'org.springframework.boot', name: 'spring-boot-starter-web', version:'1.4.1.RELEASE') {
+exclude(module: 'spring-boot-starter-logging')
+    }
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf', version:'1.4.1.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-jdbc', version:'1.4.1.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version:'1.4.1.RELEASE'
+    compile group: 'mysql', name: 'mysql-connector-java', version:'5.1.39'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version:'1.4.1.RELEASE'
+    compile(group: 'org.springframework.boot', name: 'spring-boot-starter', version:'1.4.1.RELEASE') {
+exclude(module: 'spring-boot-starter-logging')
+    }
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-log4j2', version:'1.4.1.RELEASE'
+    compile group: 'com.lmax', name: 'disruptor', version:'3.3.6'
+    compile group: 'org.springframework', name: 'spring-test', version:'4.3.3.RELEASE'
+    compile group: 'com.google.code.gson', name: 'gson', version:'2.2.4'
+    testCompile(group: 'io.specto', name: 'hoverfly-java', version:'0.4.3') {
+		exclude(module: 'logback-classic')
+    }
+    testCompile group: 'org.apache.commons', name: 'commons-lang3', version:'3.4'
+    testCompile group: 'net.javacrumbs.json-unit', name: 'json-unit', version:'1.17.0'
+    testCompile group: 'net.javacrumbs.json-unit', name: 'json-unit-fluent', version:'1.17.0'
+    testCompile group: 'info.cukes', name: 'cucumber-java', version:'1.2.5'
+    testCompile group: 'info.cukes', name: 'cucumber-java8', version:'1.2.5'
+    testCompile group: 'info.cukes', name: 'cucumber-spring', version:'1.2.5'
+    testCompile group: 'info.cukes', name: 'cucumber-junit', version:'1.2.5'
+    testCompile group: 'com.jayway.restassured', name: 'rest-assured', version:'2.9.0'
+    testCompile(group: 'org.springframework.boot', name: 'spring-boot-starter-test', version:'1.4.1.RELEASE') {
+		exclude(module: 'commons-logging')
+    }
+    testCompile group: 'org.springframework.security', name: 'spring-security-test', version:'4.0.4.RELEASE'
+    testCompile group: 'com.h2database', name: 'h2', version:'1.4.192'
+    testCompile group: 'org.hsqldb', name: 'hsqldb', version:'2.3.3'
+}
+
+configurations {
+    all*.exclude module : 'spring-boot-starter-logging'
+}
