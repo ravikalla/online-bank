@@ -19,6 +19,7 @@ import in.ravikalla.cloudBank.domain.SavingsAccount;
 import in.ravikalla.cloudBank.domain.User;
 import in.ravikalla.cloudBank.domain.security.UserRole;
 import in.ravikalla.cloudBank.service.UserService;
+import in.ravikalla.cloudBank.util.AppConstants;
 
 @Controller
 public class HomeController {
@@ -30,19 +31,19 @@ public class HomeController {
 	@Autowired
     private RoleDao roleDao;
 	
-	@RequestMapping("/")
+	@RequestMapping(AppConstants.HOME_REDIRECT_INDEX)
 	public String home() {
 		L.debug("35 : HomeController.home(...)");
 		return "redirect:/index";
 	}
-	
-	@RequestMapping("/index")
+
+	@RequestMapping(AppConstants.HOME_INDEX)
     public String index() {
 		L.debug("41 : HomeController.index(...)");
         return "index";
     }
 	
-	@RequestMapping(value = "/signup", method = RequestMethod.GET)
+	@RequestMapping(value = AppConstants.HOME_SIGNUP, method = RequestMethod.GET)
     public String signup(Model model) {
 		L.debug("47 : Start : HomeController.signup(...)");
         User user = new User();
@@ -52,7 +53,7 @@ public class HomeController {
         return "signup";
     }
 	
-	@RequestMapping(value = "/signup", method = RequestMethod.POST)
+	@RequestMapping(value = AppConstants.HOME_SIGNUP, method = RequestMethod.POST)
     public String signupPost(@ModelAttribute("user") User user,  Model model) {
 		L.debug("57 : Start : HomeController.signupPost(...)");
         if(userService.checkUserExists(user.getUsername(), user.getEmail()))  {
@@ -76,7 +77,7 @@ public class HomeController {
         }
     }
 	
-	@RequestMapping("/userFront")
+	@RequestMapping(AppConstants.HOME_USER_FRONT)
 	public String userFront(Principal principal, Model model) {
 		L.debug("81 : Start : HomeController.userFront(...)");
         User user = userService.findByUsername(principal.getName());

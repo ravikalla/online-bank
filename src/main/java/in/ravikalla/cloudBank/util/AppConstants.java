@@ -9,4 +9,9 @@ public class AppConstants {
 
 	public static final String URI_USER = "/user";
 	public static final String URI_USER_PROFILE = "/profile";
+
+	public static final String HOME_SIGNUP = "/signup";
+	public static final String HOME_USER_FRONT = "/userFront";
+	public static final String HOME_INDEX = "/index";
+	public static final String HOME_REDIRECT_INDEX = "/";
 }

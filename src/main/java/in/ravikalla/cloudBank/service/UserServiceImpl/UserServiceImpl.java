@@ -1,5 +1,7 @@
 package in.ravikalla.cloudBank.service.UserServiceImpl;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import in.ravikalla.cloudBank.dao.RoleDao;
 import in.ravikalla.cloudBank.dao.UserDao;
@@ -57,11 +60,15 @@ public class UserServiceImpl implements UserService {
             String encryptedPassword = passwordEncoder.encode(user.getPassword());
             user.setPassword(encryptedPassword);
 
+            Set<UserRole> setUserRoles = user.getUserRoles();
+            if (null == setUserRoles)
+            		setUserRoles = new HashSet<UserRole>();
+            	setUserRoles.addAll(userRoles);
+            	user.setUserRoles(setUserRoles);
+
             for (UserRole ur : userRoles) {
                 roleDao.save(ur.getRole());
             }
-
-            user.getUserRoles().addAll(userRoles);
 
             user.setPrimaryAccount(accountService.createPrimaryAccount());
             user.setSavingsAccount(accountService.createSavingsAccount());

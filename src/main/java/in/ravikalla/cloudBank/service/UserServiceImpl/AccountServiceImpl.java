@@ -1,12 +1,19 @@
 package in.ravikalla.cloudBank.service.UserServiceImpl;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+
 import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.Date;
+import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
+import in.ravikalla.cloudBank.controller.UserController;
 import in.ravikalla.cloudBank.dao.PrimaryAccountDao;
 import in.ravikalla.cloudBank.dao.SavingsAccountDao;
 import in.ravikalla.cloudBank.domain.PrimaryAccount;
@@ -20,7 +27,8 @@ import in.ravikalla.cloudBank.service.UserService;
 
 @Service
 public class AccountServiceImpl implements AccountService {
-	
+	private static final Logger L = LogManager.getLogger(UserController.class);
+
 	private static int nextAccountNumber = 11223145;
 
     @Autowired
@@ -36,23 +44,53 @@ public class AccountServiceImpl implements AccountService {
     private TransactionService transactionService;
 
     public PrimaryAccount createPrimaryAccount() {
+    		int intAccNum = 0;
+    		boolean blnAccountExists = true;
+    		List<PrimaryAccount> lstFindByAccountNumber;
+    		while (blnAccountExists) {
+    			intAccNum = accountGen();
+        		lstFindByAccountNumber = primaryAccountDao.findByAccountNumber(intAccNum);
+    			if (!CollectionUtils.isEmpty(lstFindByAccountNumber))
+    				blnAccountExists = false;
+    		}
+
         PrimaryAccount primaryAccount = new PrimaryAccount();
         primaryAccount.setAccountBalance(new BigDecimal("0.0"));
-        primaryAccount.setAccountNumber(accountGen());
+        primaryAccount.setAccountNumber(intAccNum);
 
         primaryAccountDao.save(primaryAccount);
 
-        return primaryAccountDao.findByAccountNumber(primaryAccount.getAccountNumber());
+        L.debug("63 : Primary account number = {}", primaryAccount.getAccountNumber());
+        lstFindByAccountNumber = primaryAccountDao.findByAccountNumber(primaryAccount.getAccountNumber());
+        if (!CollectionUtils.isEmpty(lstFindByAccountNumber))
+        		return lstFindByAccountNumber.get(0);
+        else
+        		return null;
     }
 
     public SavingsAccount createSavingsAccount() {
+		int intAccNum = 0;
+		boolean blnAccountExists = true;
+		List<SavingsAccount> lstFindByAccountNumber;
+		while (blnAccountExists) {
+			intAccNum = accountGen();
+    			lstFindByAccountNumber = savingsAccountDao.findByAccountNumber(intAccNum);
+			if (!CollectionUtils.isEmpty(lstFindByAccountNumber))
+				blnAccountExists = false;
+		}
+
         SavingsAccount savingsAccount = new SavingsAccount();
         savingsAccount.setAccountBalance(new BigDecimal("0.0"));
-        savingsAccount.setAccountNumber(accountGen());
+        savingsAccount.setAccountNumber(intAccNum);
 
         savingsAccountDao.save(savingsAccount);
 
-        return savingsAccountDao.findByAccountNumber(savingsAccount.getAccountNumber());
+        L.debug("88 : Savings account number = {}", savingsAccount.getAccountNumber());
+        lstFindByAccountNumber = savingsAccountDao.findByAccountNumber(savingsAccount.getAccountNumber());
+        if (!CollectionUtils.isEmpty(lstFindByAccountNumber))
+        		return lstFindByAccountNumber.get(0);
+        else
+        		return null;
     }
     
     public void deposit(String accountType, double amount, Principal principal) {
@@ -105,7 +143,4 @@ public class AccountServiceImpl implements AccountService {
     private int accountGen() {
         return ++nextAccountNumber;
     }
-
-	
-
 }

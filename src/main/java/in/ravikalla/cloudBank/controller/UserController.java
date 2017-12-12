@@ -37,7 +37,7 @@ public class UserController {
 
 	@RequestMapping(value = AppConstants.URI_USER_PROFILE, method = RequestMethod.POST)
 	public String profilePost(@ModelAttribute("user") User newUser, Model model) {
-		L.debug("39 : Start : UserController.profilePost(...)");
+		L.debug("40 : Start : UserController.profilePost(...) : " + (null == newUser));
 
 		User user = userService.findByUsername(newUser.getUsername());
 		user.setUsername(newUser.getUsername());
