@@ -1,0 +1,37 @@
+{
+  "data" : {
+    "pairs" : [ {
+      "request" : {
+        "path" : "/bofa/deposit",
+        "method" : "GET",
+        "destination" : "localhost:7001",
+        "scheme" : "http",
+        "query" : "",
+        "body" : "",
+        "headers" : {
+          "Accept" : [ "text/plain, application/json, application/*+json, */*" ],
+          "Proxy-Connection" : [ "keep-alive" ],
+          "User-Agent" : [ "Java/1.8.0_91" ]
+        },
+        "requestType" : "recording"
+      },
+      "response" : {
+        "status" : 200,
+        "body" : "deposit success",
+        "encodedBody" : false,
+        "headers" : {
+          "Content-Length" : [ "15" ],
+          "Content-Type" : [ "text/plain;charset=UTF-8" ],
+          "Date" : [ "Wed, 06 Dec 2017 23:15:41 GMT" ],
+          "Hoverfly" : [ "Was-Here" ]
+        }
+      }
+    } ],
+    "globalActions" : {
+      "delays" : [ ]
+    }
+  },
+  "meta" : {
+    "schemaVersion" : "v1"
+  }
+}
