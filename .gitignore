@@ -1,4 +1,7 @@
 target/
+bin/
+.gradle/
+output/
 !.mvn/wrapper/maven-wrapper.jar
 
 ### STS ###
