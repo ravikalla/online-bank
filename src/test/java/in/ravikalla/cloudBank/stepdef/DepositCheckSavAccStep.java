@@ -66,6 +66,8 @@ public class DepositCheckSavAccStep implements En {
 		MockitoAnnotations.initMocks(this);
 		RestAssured.port = port;
 
+		enumUserType = UserType.COMMON;
+
 		mockMvc = MockMvcBuilders.webAppContextSetup(context).apply(springSecurity()).build();
 		L.debug("End : DepositCheckSavAccStep.setUp()");
 	}
@@ -83,8 +85,11 @@ public class DepositCheckSavAccStep implements En {
 			L.debug("Start : Intial balance match");
 
 			try {
+				if (strInitialBalance.equals("4250.00"))
+					Assert.assertFalse("test"== null);
 				SavingsAccount objSavingsAccount = getSavingsAccountDetails();
 
+				L.debug("90 : Actual AccountBalance = {}, Expected = {}", objSavingsAccount.getAccountBalance().toPlainString(), strInitialBalance);
 				Assert.assertEquals("Account Balance should match", strInitialBalance, objSavingsAccount.getAccountBalance().toPlainString());
 			} catch (Exception e) {
 				Assert.fail("132 : Couldnt check the initial balance : " + e);

@@ -64,6 +64,8 @@ public class DepositCheckCheckAccStep implements En {
 		MockitoAnnotations.initMocks(this);
 		RestAssured.port = port;
 
+		enumUserType = UserType.COMMON;
+
 		mockMvc = MockMvcBuilders.webAppContextSetup(context).apply(springSecurity()).build();
 		L.debug("End : DepositCheckCheckAccStep.setUp()");
 	}

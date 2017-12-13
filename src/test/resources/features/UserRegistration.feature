@@ -1,4 +1,4 @@
-Feature: Check if user registration is working fine
+Feature: Check if new users can be registered
 
 @Regression
 Scenario Outline: Simple user registration
@@ -9,5 +9,5 @@ Scenario Outline: Simple user registration
 	Examples:
 		|firstName|lastName|phone     |email        |username|password|
 		|Ravi     |Kalla   |1111111111|ravi@ravi.com|ravi    |ravi    |
-		|Raj      |Kumar   |2222222222|raj@raj.com  |Raj     |Raj    |
-		
+		|Raj      |Kumar   |2222222222|raj@raj.com  |Raj     |Raj     |
+		|Matt     |Damon   |3333333333|matt@matt.com|Matt    |Matt    |

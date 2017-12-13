@@ -54,7 +54,7 @@ public class AccountServiceImpl implements AccountService {
     		while (blnAccountExists) {
     			intAccNum = accountGen();
         		lstFindByAccountNumber = primaryAccountDao.findByAccountNumber(intAccNum);
-    			if (!CollectionUtils.isEmpty(lstFindByAccountNumber))
+    			if (CollectionUtils.isEmpty(lstFindByAccountNumber))
     				blnAccountExists = false;
     		}
 
@@ -79,7 +79,7 @@ public class AccountServiceImpl implements AccountService {
 		while (blnAccountExists) {
 			intAccNum = accountGen();
     			lstFindByAccountNumber = savingsAccountDao.findByAccountNumber(intAccNum);
-			if (!CollectionUtils.isEmpty(lstFindByAccountNumber))
+			if (CollectionUtils.isEmpty(lstFindByAccountNumber))
 				blnAccountExists = false;
 		}
 

@@ -32,8 +32,9 @@ Scenario Outline: Check if lot of money can be deposited in CheckingsAccount
 	And Initial balance in Checkings account is <InitialBalance>
 	When Deposit money of <DepositAmount> dollars in CheckingsAccount
 	Then Check remaining amount <RemainingAmount> dollars in CheckingsAccount
+	And Withdraw money of <WithdrawAmount> dollars from CheckingsAccount
 
 	Examples:
-		|InitialBalance|DepositAmount   |RemainingAmount    |
-		|-500.00       |1000            |500.00             |
-		|500.00        |1000000000000000|1000000000000500.00|
+		|InitialBalance|DepositAmount   |RemainingAmount    |WithdrawAmount     |
+		|-500.00       |1000            |500.00             |0.00               |
+		|500.00        |1000000000000000|1000000000000500.00|1000000000000500.00|

@@ -32,9 +32,10 @@ Scenario Outline: Check if lot of money can be deposited in SavingsAccount
 	And Initial balance in Savings account is <InitialBalance>
 	When Deposit money of <DepositAmount> dollars in SavingsAccount
 	Then Check remaining amount <RemainingAmount> dollars in SavingsAccount
-	And Check if transaction count of SavingsAccount is greater than 0 
+	And Check if transaction count of SavingsAccount is greater than 0
+	And Withdraw money of <WithdrawAmount> dollars from SavingsAccount
 
 	Examples:
-		|InitialBalance|DepositAmount   |RemainingAmount    |
-		|-500.00       |1000            |500.00             |
-		|500.00        |1000000000000000|1000000000000500.00|
+		|InitialBalance|DepositAmount   |RemainingAmount    |WithdrawAmount     |
+		|-500.00       |1000            |500.00             |0.00               |
+		|500.00        |1000000000000000|1000000000000500.00|1000000000000500.00|

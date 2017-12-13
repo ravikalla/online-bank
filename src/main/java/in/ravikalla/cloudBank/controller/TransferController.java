@@ -20,9 +20,10 @@ import in.ravikalla.cloudBank.domain.SavingsAccount;
 import in.ravikalla.cloudBank.domain.User;
 import in.ravikalla.cloudBank.service.TransactionService;
 import in.ravikalla.cloudBank.service.UserService;
+import static in.ravikalla.cloudBank.util.AppConstants.*;
 
 @Controller
-@RequestMapping("/transfer")
+@RequestMapping(URI_TRANSFER)
 public class TransferController {
 	private static final Logger L = LogManager.getLogger(TransferController.class);
 
@@ -32,7 +33,7 @@ public class TransferController {
 	@Autowired
 	private UserService userService;
 
-	@RequestMapping(value = "/betweenAccounts", method = RequestMethod.GET)
+	@RequestMapping(value = URI_TRANSFER_BETWEEN_ACCOUNTS, method = RequestMethod.GET)
 	public String betweenAccounts(Model model) {
 		L.debug("37 : Start : TransferController.betweenAccounts(...)");
 
@@ -44,7 +45,7 @@ public class TransferController {
 		return "betweenAccounts";
 	}
 
-	@RequestMapping(value = "/betweenAccounts", method = RequestMethod.POST)
+	@RequestMapping(value = URI_TRANSFER_BETWEEN_ACCOUNTS, method = RequestMethod.POST)
 	public String betweenAccountsPost(
 			@ModelAttribute("transferFrom") String transferFrom,
 			@ModelAttribute("transferTo") String transferTo,
@@ -62,7 +63,7 @@ public class TransferController {
 		return "redirect:/userFront";
 	}
 	
-	@RequestMapping(value = "/recipient", method = RequestMethod.GET)
+	@RequestMapping(value = URI_TRANSFER_RECEPIENT, method = RequestMethod.GET)
 	public String recipient(Model model, Principal principal) {
 		L.debug("67 : Start : TransferController.recipient(...)");
 
@@ -77,7 +78,7 @@ public class TransferController {
 		return "recipient";
 	}
 
-	@RequestMapping(value = "/recipient/save", method = RequestMethod.POST)
+	@RequestMapping(value = URI_TRANSFER_RECEPIENT_SAVE, method = RequestMethod.POST)
 	public String recipientPost(@ModelAttribute("recipient") Recipient recipient, Principal principal) {
 		L.debug("82 : Start : TransferController.recipientPost(...)");
 
@@ -89,7 +90,7 @@ public class TransferController {
 		return "redirect:/transfer/recipient";
 	}
 
-	@RequestMapping(value = "/recipient/edit", method = RequestMethod.GET)
+	@RequestMapping(value = URI_TRANSFER_RECEPIENT_SAVE, method = RequestMethod.GET)
 	public String recipientEdit(@RequestParam(value = "recipientName") String recipientName, Model model, Principal principal){
 		L.debug("94 : Start : TransferController.recipientEdit(...)");
 
@@ -103,7 +104,7 @@ public class TransferController {
 		return "recipient";
 	}
 
-	@RequestMapping(value = "/recipient/delete", method = RequestMethod.GET)
+	@RequestMapping(value = URI_TRANSFER_RECEPIENT_DELETE, method = RequestMethod.GET)
 	@Transactional
 	public String recipientDelete(@RequestParam(value = "recipientName") String recipientName, Model model, Principal principal){
 		L.debug("109 : Start : TransferController.recipientDelete(...)");
@@ -120,7 +121,7 @@ public class TransferController {
 		return "recipient";
 	}
 
-	@RequestMapping(value = "/toSomeoneElse",method = RequestMethod.GET)
+	@RequestMapping(value = URI_TRANSFER_TO_SOMEONE,method = RequestMethod.GET)
 	public String toSomeoneElse(Model model, Principal principal) {
 		L.debug("125 : Start : TransferController.toSomeoneElse(...)");
 
@@ -133,7 +134,7 @@ public class TransferController {
 		return "toSomeoneElse";
 	}
 
-	@RequestMapping(value = "/toSomeoneElse",method = RequestMethod.POST)
+	@RequestMapping(value =  URI_TRANSFER_TO_SOMEONE,method = RequestMethod.POST)
 	public String toSomeoneElsePost(@ModelAttribute("recipientName") String recipientName, @ModelAttribute("accountType") String accountType, @ModelAttribute("amount") String amount, Principal principal) {
 		L.debug("138 : Start : TransferController.toSomeoneElsePost(...)");
 
