@@ -85,8 +85,6 @@ public class DepositCheckSavAccStep implements En {
 			L.debug("Start : Intial balance match");
 
 			try {
-				if (strInitialBalance.equals("4250.00"))
-					Assert.assertFalse("test"== null);
 				SavingsAccount objSavingsAccount = getSavingsAccountDetails();
 
 				L.debug("90 : Actual AccountBalance = {}, Expected = {}", objSavingsAccount.getAccountBalance().toPlainString(), strInitialBalance);
