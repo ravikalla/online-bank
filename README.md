@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/ravikalla/online-bank.svg?branch=master)](https://travis-ci.org/ravikalla/online-bank)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/0c86bf7890ad417da8f08843204e8597)](https://www.codacy.com/app/ravikalla/online-bank?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ravikalla/online-bank&amp;utm_campaign=Badge_Grade)
+[![Code Coverage](https://codecov.io/github/ravikalla/online-bank/coverage.svg)](https://codecov.io/gh/ravikalla/online-bank)
 [![Issue Count](https://codeclimate.com/github/ravikalla/online-bank/badges/issue_count.svg)](https://codeclimate.com/github/ravikalla/online-bank)
 [![Issues](https://img.shields.io/github/issues/ravikalla/online-bank.svg?style=flat-square)](https://github.com/ravikalla/online-bank/issues)
 [![Docker Stars](https://img.shields.io/docker/stars/ravikalla/online-bank.svg)](https://hub.docker.com/r/ravikalla/online-bank/)
