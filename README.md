@@ -53,11 +53,11 @@ java -jar target/online-bank-0.0.1-SNAPSHOT.jar
 #### Application setup with Docker:
 ###### Build Docker image for the application
 ```
-docker build -t ravikalla/cloudbank:v0.1 .
+docker build -t ravikalla/online-bank:latest .
 ```
 ###### Run Docker image of the application
 ```
-docker run --detach -p 8080:8080 --link bankmysql:localhost -t ravikalla/cloudbank:v0.1
+docker run --detach -p 8080:8080 --link bankmysql:localhost -t ravikalla/online-bank:latest
 ```
 Access the application by clicking the URL "[http://localhost:8080!](http://localhost:8080)"
 #### Application setup with Maven on Docker playground:
