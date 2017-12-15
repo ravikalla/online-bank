@@ -1,7 +1,7 @@
 pipeline {
     agent any 
     stages {
-        stage ("initialize") {
+        stage ("Initialize Jenkins Env") {
          steps {
             sh '''
             echo "PATH = ${PATH}"
@@ -9,25 +9,31 @@ pipeline {
             '''
          }
         }
-        stage('Checkout') { 
+        stage('Download Code') { 
             steps { 
                echo 'checking out'
                checkout scm
             }
         }
-        stage('Build'){
+        stage('Execute Tests'){
+            steps {
+                echo 'Testing'
+                sh 'mvn test'
+            }
+        }
+        stage('Build Application'){
             steps {
                 echo 'Building...'
                 sh 'mvn clean install -Dmaven.test.skip=true'
             }
         }
-        stage('Build Docker') {
+        stage('Build Docker Image') {
             steps {
                 echo 'Building Docker image'
                 sh 'docker build -t ravikalla/cloudbank:v0.1 .'
             }
         }
-       stage('Create database ') {
+       stage('Create Database') {
             steps {
                 echo 'Running Database Image'
             //    sh 'docker kill bankmysql 2> /dev/null'
@@ -40,7 +46,7 @@ pipeline {
                 sh 'docker exec -i bankmysql mysql -uroot -proot < sql_dump/onlinebanking.sql'
             }
         }
-        stage('Run') {
+        stage('Deploy and Run') {
             steps {
                 echo 'Running Application'
                 sh 'docker stop cloudbank || true && docker rm cloudbank || true'
