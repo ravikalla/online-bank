@@ -50,7 +50,7 @@ pipeline {
             steps {
                 echo 'Running Application'
                 sh 'docker stop cloudbank || true && docker rm cloudbank || true'
-                sh 'docker run --detach --name=cloudbank -p 8080:8080 --link bankmysql:localhost -t ravikalla/online-bank:1'
+                sh 'docker run --detach --name=cloudbank -p 8888:8888 --link bankmysql:localhost -t ravikalla/online-bank:1'
             }
         }
     }
