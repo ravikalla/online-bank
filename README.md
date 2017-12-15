@@ -41,9 +41,9 @@ docker exec -i bankmysql mysql -uroot -proot < sql_dump/onlinebanking.sql
 ```
 ###### Run Docker image of the application
 ```
-docker run --detach -p 8080:8080 --link bankmysql:localhost -t ravikalla/online-bank:latest
+docker run --detach -p 8888:8888 --link bankmysql:localhost -t ravikalla/online-bank:latest
 ```
-Access the application by clicking the URL "[http://localhost:8080!](http://localhost:8080)"
+Access the application by clicking the URL "[http://localhost:8888!](http://localhost:8888)"
 
 ## Deployment Steps without Docker:
 ###### Build application
@@ -86,4 +86,4 @@ docker run --detach -v /var/run/docker.sock:/var/run/docker.sock -v $(which dock
  * Run the job to build and deploy the application
 
 ###### Debug H2 DB while testing
- * Set a debug point in any test step and check the URL "http://localhost:8080/console" while testing
+ * Set a debug point in any test step and check the URL "http://localhost:8888/console" while testing
