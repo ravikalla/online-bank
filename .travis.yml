@@ -9,3 +9,11 @@ script: mvn clean install
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
+
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: qk1qRc7APoQjr8xgbPih # Set in travis-ci.org dashboard
+  local_dir: target
+  on:
+    branch: master
