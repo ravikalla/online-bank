@@ -13,7 +13,7 @@ after_success:
 deploy:
   provider: pages
   skip_cleanup: true
-  github_token: $GITHUB_TOKEN
+  github_token: $GITHUB_TOKEN # Environment variable mentioned in TravisCI
 #  local_dir: target/cucumber/cucumber-html-report
   on:
     branch: master
