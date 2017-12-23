@@ -87,3 +87,28 @@ docker run --detach -v /var/run/docker.sock:/var/run/docker.sock -v $(which dock
 
 ###### Debug H2 DB while testing
  * Set a debug point in any test step and check the URL "http://localhost:8888/console" while testing
+
+## Code Quality Reports
+For Online-Bank application, build happens in [TravisCI](https://travis-ci.org/ravikalla/online-bank) ![Build Status](https://travis-ci.org/ravikalla/online-bank.svg?branch=master) and the test reports are generated in the same TravisCI server during the build process.
+
+We are generating Cucumber test results in "[ExtentReport](http://extentreports.com)" format. Extent Reports are open source and provides very good visuals for test reports - [sample Extent report](http://extentreports.com/samples/extent-bdd.html).
+
+In the file [.travis.yml](https://github.com/ravikalla/online-bank/blob/master/.travis.yml#L14), it is configured to push the generated test reports to "[gh-pages](https://github.com/ravikalla/online-bank/tree/gh-pages)" branch once the build is complete.
+
+Once these test reports are uploaded to "[gh-pages](https://github.com/ravikalla/online-bank/tree/gh-pages)" branch in [Online-Bank](https://github.com/ravikalla/online-bank) project, you can access various reports online using below links -
+
+1. Cucumber Native Test Results - [https://ravikalla.github.io/online-bank/cucumber/cucumber-html-report](https://ravikalla.github.io/online-bank/cucumber/cucumber-html-report)
+
+<img src="https://github.com/ravikalla/images/blob/master/online-bank/CucumberReport.png" width="50%" height="50%">
+
+2. Extent Report that has Cucumber Test Results - [https://ravikalla.github.io/online-bank/extent-report.html](https://ravikalla.github.io/online-bank/extent-report.html)
+
+<img src="https://github.com/ravikalla/images/blob/master/online-bank/ExtentReport1.png" width="50%" height="50%">
+
+<img src="https://github.com/ravikalla/images/blob/master/online-bank/ExtentReport2.png" width="50%" height="50%">
+
+<img src="https://github.com/ravikalla/images/blob/master/online-bank/ExtentReport3.png" width="50%" height="50%">
+
+3. JaCoCo Report for code coverage - [https://ravikalla.github.io/online-bank/site/jacoco](https://ravikalla.github.io/online-bank/site/jacoco)
+
+<img src="https://github.com/ravikalla/images/blob/master/online-bank/JaCoCoReport.png" width="80%" height="80%">
