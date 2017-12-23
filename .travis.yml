@@ -10,10 +10,10 @@ script: mvn clean install
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 
-#deploy:
-#  provider: pages
-#  skip_cleanup: true
-#  github_token: qk1qRc7APoQjr8xgbPih
-#  repo: $GITHUB_REPO
-#  on:
-#    branch: master
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: qk1qRc7APoQjr8xgbPih
+  repo: $GITHUB_REPO
+  on:
+    branch: master
