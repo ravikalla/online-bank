@@ -13,7 +13,7 @@ after_success:
 deploy:
   provider: pages
   skip_cleanup: true
-  github_token: 745e059656edf06d5c41bf73b1232bdcf3521e89
+  github_token: 8dcf4aacbd7c5a98e11f2f2694e082c7495d0438
   local_dir: target/cucumber/cucumber-html-report
   on:
     branch: master
