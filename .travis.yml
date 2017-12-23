@@ -14,6 +14,5 @@ deploy:
   provider: pages
   skip_cleanup: true
   github_token: qk1qRc7APoQjr8xgbPih
-  repo: $GITHUB_REPO
   on:
     branch: master
