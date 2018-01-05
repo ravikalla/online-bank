@@ -28,7 +28,7 @@ import cucumber.api.junit.Cucumber;
         , plugin = {"pretty" ,"html:target/cucumber/cucumber-html-report", "json:target/cucumber/cucumber.json" , "junit:target/cucumber/cucumber.xml"}
 )
 public class BDDTest {
-  private static final Logger  L = LogManager.getLogger(BDDConfigurationTest.class);
+  private static final Logger  L = LogManager.getLogger(BDDTest.class);
         
   @ClassRule
   public static HoverflyRule hoverflyRule = HoverflyRule.inCaptureOrSimulationMode("account.json",HoverflyConfig.configs().proxyLocalHost(true));
