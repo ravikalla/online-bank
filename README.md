@@ -32,7 +32,7 @@ git clone https://github.com/ravikalla/online-bank.git
 ```
 ###### Start MySQL Docker Container
 ```
-docker run --detach --name=bankmysql --env="MYSQL_ROOT_PASSWORD=root" -p 3306:3306 mysql
+docker run --detach --name=bankmysql --env="MYSQL_ROOT_PASSWORD=root" -p 3306:3306 mysql:5.7.22
 ```
 ###### Execute SQL scripts in MySQL
 ```
