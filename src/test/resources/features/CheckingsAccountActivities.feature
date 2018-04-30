@@ -14,6 +14,7 @@ Scenario Outline: Check if the money that is deposited money can be withdrawn fr
 		|2200.00       |1000000      |0             |1002200.00     |
 		|1002200.00    |1000         |5000          |998200.00      |
 		|998200.00     |0            |998200.00     |0.00           |
+		|0.00          |0            |0.00          |0.01           |
 
 @Regression
 Scenario Outline: Check if overdraft is possible in CheckingsAccount
