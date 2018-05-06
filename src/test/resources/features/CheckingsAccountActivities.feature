@@ -1,7 +1,7 @@
-Feature: Check money deposit and withdrawl from Checkings account
+Feature: Check money deposited can be withdrawn from Checkings account in all possible cases
 
 @Regression
-Scenario Outline: Check if the money that is deposited money can be withdrawn from CheckingsAccount
+Scenario Outline: Check if the money deposited can be withdrawn from CheckingsAccount in all positive scenarios
 	Given Common user logged in
 	And Initial balance in Checkings account is <InitialBalance>
 	When Deposit money of <DepositAmount> dollars in CheckingsAccount
@@ -27,7 +27,7 @@ Scenario Outline: Check if overdraft is possible in CheckingsAccount
 		|0.00          |500           |-500.00        |
 
 @Regression
-Scenario Outline: Check if lot of money can be deposited in CheckingsAccount
+Scenario Outline: Check if huge amounts of money can be deposited and withdrawn in CheckingsAccount
 	Given Common user logged in
 	And Initial balance in Checkings account is <InitialBalance>
 	When Deposit money of <DepositAmount> dollars in CheckingsAccount
