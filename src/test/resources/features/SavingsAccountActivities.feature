@@ -1,7 +1,7 @@
-Feature: Check money deposit and withdrawl from Savings account
+Feature: Check of money deposited can be withdrawn from Savings account in all possible cases
 
 @Regression
-Scenario Outline: Check if the money that is deposited money can be withdrawn from SavingsAccount
+Scenario Outline: Check if the money that is deposited money can be withdrawn from SavingsAccount in general cases
 	Given Common user logged in for Savings Account
 	And Initial balance in Savings account is <InitialBalance>
 	When Deposit money of <DepositAmount> dollars in SavingsAccount
@@ -27,7 +27,7 @@ Scenario Outline: Check if overdraft is possible in SavingsAccount
 		|0.00          |500           |-500.00        |
 
 @Regression
-Scenario Outline: Check if lot of money can be deposited in SavingsAccount
+Scenario Outline: Check if large amounts of money can be deposited in SavingsAccount
 	Given Common user logged in for Savings Account
 	And Initial balance in Savings account is <InitialBalance>
 	When Deposit money of <DepositAmount> dollars in SavingsAccount
