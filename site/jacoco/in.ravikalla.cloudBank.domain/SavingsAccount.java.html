@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SavingsAccount.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">online-bank</a> &gt; <a href="index.source.html" class="el_package">in.ravikalla.cloudBank.domain</a> &gt; <span class="el_source">SavingsAccount.java</span></div><h1>SavingsAccount.java</h1><pre class="source lang-java linenums">package in.ravikalla.cloudBank.domain;
+
+import java.math.BigDecimal;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@Entity
+<span class="fc" id="L17">public class SavingsAccount {</span>
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    private int accountNumber;
+    private BigDecimal accountBalance;
+
+    @OneToMany(mappedBy = &quot;savingsAccount&quot;, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List&lt;SavingsTransaction&gt; savingsTransactionList;
+
+    public Long getId() {
+<span class="fc" id="L30">        return id;</span>
+    }
+
+    public void setId(Long id) {
+<span class="nc" id="L34">        this.id = id;</span>
+<span class="nc" id="L35">    }</span>
+
+    public int getAccountNumber() {
+<span class="fc" id="L38">        return accountNumber;</span>
+    }
+
+    public void setAccountNumber(int accountNumber) {
+<span class="fc" id="L42">        this.accountNumber = accountNumber;</span>
+<span class="fc" id="L43">    }</span>
+
+    public BigDecimal getAccountBalance() {
+<span class="fc" id="L46">        return accountBalance;</span>
+    }
+
+    public void setAccountBalance(BigDecimal accountBalance) {
+<span class="fc" id="L50">        this.accountBalance = accountBalance;</span>
+<span class="fc" id="L51">    }</span>
+
+    public List&lt;SavingsTransaction&gt; getSavingsTransactionList() {
+<span class="fc" id="L54">        return savingsTransactionList;</span>
+    }
+
+    public void setSavingsTransactionList(List&lt;SavingsTransaction&gt; savingsTransactionList) {
+<span class="nc" id="L58">        this.savingsTransactionList = savingsTransactionList;</span>
+<span class="nc" id="L59">    }</span>
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

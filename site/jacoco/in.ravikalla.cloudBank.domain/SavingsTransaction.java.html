@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SavingsTransaction.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">online-bank</a> &gt; <a href="index.source.html" class="el_package">in.ravikalla.cloudBank.domain</a> &gt; <span class="el_source">SavingsTransaction.java</span></div><h1>SavingsTransaction.java</h1><pre class="source lang-java linenums">package in.ravikalla.cloudBank.domain;
+
+import java.math.BigDecimal;
+import java.util.Date;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+@Entity
+public class SavingsTransaction {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    private Date date;
+    private String description;
+    private String type;
+    private String status;
+    private double amount;
+    private BigDecimal availableBalance;
+
+    @ManyToOne
+    @JoinColumn(name = &quot;savings_account_id&quot;)
+    private SavingsAccount savingsAccount;
+
+<span class="fc" id="L30">    public SavingsTransaction() {}</span>
+
+<span class="fc" id="L32">    public SavingsTransaction(Date date, String description, String type, String status, double amount, BigDecimal availableBalance, SavingsAccount savingsAccount) {</span>
+<span class="fc" id="L33">        this.date = date;</span>
+<span class="fc" id="L34">        this.description = description;</span>
+<span class="fc" id="L35">        this.type = type;</span>
+<span class="fc" id="L36">        this.status = status;</span>
+<span class="fc" id="L37">        this.amount = amount;</span>
+<span class="fc" id="L38">        this.availableBalance = availableBalance;</span>
+<span class="fc" id="L39">        this.savingsAccount = savingsAccount;</span>
+<span class="fc" id="L40">    }</span>
+
+    public Long getId() {
+<span class="fc" id="L43">        return id;</span>
+    }
+
+    public void setId(Long id) {
+<span class="nc" id="L47">        this.id = id;</span>
+<span class="nc" id="L48">    }</span>
+
+    public Date getDate() {
+<span class="fc" id="L51">        return date;</span>
+    }
+
+    public void setDate(Date date) {
+<span class="nc" id="L55">        this.date = date;</span>
+<span class="nc" id="L56">    }</span>
+
+    public String getDescription() {
+<span class="fc" id="L59">        return description;</span>
+    }
+
+    public void setDescription(String description) {
+<span class="nc" id="L63">        this.description = description;</span>
+<span class="nc" id="L64">    }</span>
+
+    public String getType() {
+<span class="fc" id="L67">        return type;</span>
+    }
+
+    public void setType(String type) {
+<span class="nc" id="L71">        this.type = type;</span>
+<span class="nc" id="L72">    }</span>
+
+    public String getStatus() {
+<span class="fc" id="L75">        return status;</span>
+    }
+
+    public void setStatus(String status) {
+<span class="nc" id="L79">        this.status = status;</span>
+<span class="nc" id="L80">    }</span>
+
+    public double getAmount() {
+<span class="fc" id="L83">        return amount;</span>
+    }
+
+    public void setAmount(double amount) {
+<span class="nc" id="L87">        this.amount = amount;</span>
+<span class="nc" id="L88">    }</span>
+
+    public BigDecimal getAvailableBalance() {
+<span class="fc" id="L91">        return availableBalance;</span>
+    }
+
+    public void setAvailableBalance(BigDecimal availableBalance) {
+<span class="nc" id="L95">        this.availableBalance = availableBalance;</span>
+<span class="nc" id="L96">    }</span>
+
+    public SavingsAccount getSavingsAccount() {
+<span class="nc" id="L99">        return savingsAccount;</span>
+    }
+
+    public void setSavingsAccount(SavingsAccount savingsAccount) {
+<span class="nc" id="L103">        this.savingsAccount = savingsAccount;</span>
+<span class="nc" id="L104">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

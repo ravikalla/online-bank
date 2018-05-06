@@ -1,0 +1,9 @@
+/home/travis/build/ravikalla/online-bank/src/test/java/in/ravikalla/cloudBank/utils/UserType.java
+/home/travis/build/ravikalla/online-bank/src/test/java/in/ravikalla/cloudBank/BDDTest.java
+/home/travis/build/ravikalla/online-bank/src/test/java/in/ravikalla/cloudBank/utils/VirtualWebserviceTestREST.java
+/home/travis/build/ravikalla/online-bank/src/test/java/in/ravikalla/cloudBank/stepdef/TransferActivitiesStep.java
+/home/travis/build/ravikalla/online-bank/src/test/java/in/ravikalla/cloudBank/stepdef/DepositCheckCheckAccStep.java
+/home/travis/build/ravikalla/online-bank/src/test/java/in/ravikalla/cloudBank/stepdef/UserRegistrationStep.java
+/home/travis/build/ravikalla/online-bank/src/test/java/in/ravikalla/cloudBank/config/WebConfiguration.java
+/home/travis/build/ravikalla/online-bank/src/test/java/in/ravikalla/cloudBank/stepdef/DepositCheckSavAccStep.java
+/home/travis/build/ravikalla/online-bank/src/test/java/in/ravikalla/cloudBank/utils/TestUtils.java

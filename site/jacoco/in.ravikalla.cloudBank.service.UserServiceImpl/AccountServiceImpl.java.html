@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AccountServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">online-bank</a> &gt; <a href="index.source.html" class="el_package">in.ravikalla.cloudBank.service.UserServiceImpl</a> &gt; <span class="el_source">AccountServiceImpl.java</span></div><h1>AccountServiceImpl.java</h1><pre class="source lang-java linenums">package in.ravikalla.cloudBank.service.UserServiceImpl;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+
+import java.math.BigDecimal;
+import java.security.Principal;
+import java.util.Date;
+import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.RestTemplate;
+
+import in.ravikalla.cloudBank.controller.UserController;
+import in.ravikalla.cloudBank.dao.PrimaryAccountDao;
+import in.ravikalla.cloudBank.dao.SavingsAccountDao;
+import in.ravikalla.cloudBank.domain.PrimaryAccount;
+import in.ravikalla.cloudBank.domain.PrimaryTransaction;
+import in.ravikalla.cloudBank.domain.SavingsAccount;
+import in.ravikalla.cloudBank.domain.SavingsTransaction;
+import in.ravikalla.cloudBank.domain.User;
+import in.ravikalla.cloudBank.service.AccountService;
+import in.ravikalla.cloudBank.service.TransactionService;
+import in.ravikalla.cloudBank.service.UserService;
+import in.ravikalla.cloudBank.util.AppConstants;
+
+import static in.ravikalla.cloudBank.util.AppConstants.*;
+@Service
+<span class="fc" id="L33">public class AccountServiceImpl implements AccountService {</span>
+<span class="fc" id="L34">	private static final Logger L = LogManager.getLogger(AccountServiceImpl.class);</span>
+
+<span class="fc" id="L36">	private static int nextAccountNumber = 11223145;</span>
+
+    @Autowired
+    private PrimaryAccountDao primaryAccountDao;
+
+    @Autowired
+    private SavingsAccountDao savingsAccountDao;
+
+    @Autowired
+    private UserService userService;
+    
+    @Autowired
+    private TransactionService transactionService;
+
+    public PrimaryAccount createPrimaryAccount() {
+<span class="fc" id="L51">    		int intAccNum = 0;</span>
+<span class="fc" id="L52">    		boolean blnAccountExists = true;</span>
+    		List&lt;PrimaryAccount&gt; lstFindByAccountNumber;
+<span class="fc bfc" id="L54" title="All 2 branches covered.">    		while (blnAccountExists) {</span>
+<span class="fc" id="L55">    			intAccNum = accountGen();</span>
+<span class="fc" id="L56">        		lstFindByAccountNumber = primaryAccountDao.findByAccountNumber(intAccNum);</span>
+<span class="fc bfc" id="L57" title="All 2 branches covered.">    			if (CollectionUtils.isEmpty(lstFindByAccountNumber))</span>
+<span class="fc" id="L58">    				blnAccountExists = false;</span>
+    		}
+
+<span class="fc" id="L61">        PrimaryAccount primaryAccount = new PrimaryAccount();</span>
+<span class="fc" id="L62">        primaryAccount.setAccountBalance(new BigDecimal(&quot;0.0&quot;));</span>
+<span class="fc" id="L63">        primaryAccount.setAccountNumber(intAccNum);</span>
+
+<span class="fc" id="L65">        primaryAccountDao.save(primaryAccount);</span>
+
+<span class="fc" id="L67">        L.debug(&quot;63 : Primary account number = {}&quot;, primaryAccount.getAccountNumber());</span>
+<span class="fc" id="L68">        lstFindByAccountNumber = primaryAccountDao.findByAccountNumber(primaryAccount.getAccountNumber());</span>
+<span class="pc bpc" id="L69" title="1 of 2 branches missed.">        if (!CollectionUtils.isEmpty(lstFindByAccountNumber))</span>
+<span class="fc" id="L70">        		return lstFindByAccountNumber.get(0);</span>
+        else
+<span class="nc" id="L72">        		return null;</span>
+    }
+
+    public SavingsAccount createSavingsAccount() {
+<span class="fc" id="L76">		int intAccNum = 0;</span>
+<span class="fc" id="L77">		boolean blnAccountExists = true;</span>
+		List&lt;SavingsAccount&gt; lstFindByAccountNumber;
+<span class="fc bfc" id="L79" title="All 2 branches covered.">		while (blnAccountExists) {</span>
+<span class="fc" id="L80">			intAccNum = accountGen();</span>
+<span class="fc" id="L81">    			lstFindByAccountNumber = savingsAccountDao.findByAccountNumber(intAccNum);</span>
+<span class="pc bpc" id="L82" title="1 of 2 branches missed.">			if (CollectionUtils.isEmpty(lstFindByAccountNumber))</span>
+<span class="fc" id="L83">				blnAccountExists = false;</span>
+		}
+
+<span class="fc" id="L86">        SavingsAccount savingsAccount = new SavingsAccount();</span>
+<span class="fc" id="L87">        savingsAccount.setAccountBalance(new BigDecimal(&quot;0.0&quot;));</span>
+<span class="fc" id="L88">        savingsAccount.setAccountNumber(intAccNum);</span>
+
+<span class="fc" id="L90">        savingsAccountDao.save(savingsAccount);</span>
+
+<span class="fc" id="L92">        L.debug(&quot;88 : Savings account number = {}&quot;, savingsAccount.getAccountNumber());</span>
+<span class="fc" id="L93">        lstFindByAccountNumber = savingsAccountDao.findByAccountNumber(savingsAccount.getAccountNumber());</span>
+<span class="pc bpc" id="L94" title="1 of 2 branches missed.">        if (!CollectionUtils.isEmpty(lstFindByAccountNumber))</span>
+<span class="fc" id="L95">        		return lstFindByAccountNumber.get(0);</span>
+        else
+<span class="nc" id="L97">        		return null;</span>
+    }
+    
+    public void deposit(String accountType, double amount, Principal principal) {
+<span class="fc" id="L101">        User user = userService.findByUsername(principal.getName());</span>
+
+<span class="fc bfc" id="L103" title="All 2 branches covered.">        if (accountType.equalsIgnoreCase(&quot;Primary&quot;)) {</span>
+<span class="fc" id="L104">            PrimaryAccount primaryAccount = user.getPrimaryAccount();</span>
+<span class="fc" id="L105">            primaryAccount.setAccountBalance(primaryAccount.getAccountBalance().add(new BigDecimal(amount)));</span>
+<span class="fc" id="L106">            primaryAccountDao.save(primaryAccount);</span>
+
+<span class="fc" id="L108">            Date date = new Date();</span>
+
+<span class="fc" id="L110">            PrimaryTransaction primaryTransaction = new PrimaryTransaction(date, &quot;Deposit to Primary Account&quot;, &quot;Account&quot;, &quot;Finished&quot;, amount, primaryAccount.getAccountBalance(), primaryAccount);</span>
+<span class="fc" id="L111">            transactionService.savePrimaryDepositTransaction(primaryTransaction);</span>
+
+<span class="fc" id="L113">            callBofaDeposit();</span>
+            
+<span class="pc bpc" id="L115" title="1 of 2 branches missed.">        } else if (accountType.equalsIgnoreCase(&quot;Savings&quot;)) {</span>
+<span class="fc" id="L116">            SavingsAccount savingsAccount = user.getSavingsAccount();</span>
+<span class="fc" id="L117">            savingsAccount.setAccountBalance(savingsAccount.getAccountBalance().add(new BigDecimal(amount)));</span>
+<span class="fc" id="L118">            savingsAccountDao.save(savingsAccount);</span>
+
+<span class="fc" id="L120">            Date date = new Date();</span>
+<span class="fc" id="L121">            SavingsTransaction savingsTransaction = new SavingsTransaction(date, &quot;Deposit to savings Account&quot;, &quot;Account&quot;, &quot;Finished&quot;, amount, savingsAccount.getAccountBalance(), savingsAccount);</span>
+<span class="fc" id="L122">            transactionService.saveSavingsDepositTransaction(savingsTransaction);</span>
+
+<span class="fc" id="L124">            callBofaDeposit();</span>
+        }
+<span class="fc" id="L126">    }</span>
+
+    public void withdraw(String accountType, double amount, Principal principal) {
+<span class="fc" id="L129">        User user = userService.findByUsername(principal.getName());</span>
+
+<span class="fc bfc" id="L131" title="All 2 branches covered.">        if (accountType.equalsIgnoreCase(&quot;Primary&quot;)) {</span>
+<span class="fc" id="L132">            PrimaryAccount primaryAccount = user.getPrimaryAccount();</span>
+<span class="fc" id="L133">            primaryAccount.setAccountBalance(primaryAccount.getAccountBalance().subtract(new BigDecimal(amount)));</span>
+<span class="fc" id="L134">            primaryAccountDao.save(primaryAccount);</span>
+
+<span class="fc" id="L136">            Date date = new Date();</span>
+
+<span class="fc" id="L138">            PrimaryTransaction primaryTransaction = new PrimaryTransaction(date, &quot;Withdraw from Primary Account&quot;, &quot;Account&quot;, &quot;Finished&quot;, amount, primaryAccount.getAccountBalance(), primaryAccount);</span>
+<span class="fc" id="L139">            transactionService.savePrimaryWithdrawTransaction(primaryTransaction);</span>
+<span class="fc" id="L140">            callBofaWithdraw();</span>
+<span class="pc bpc" id="L141" title="1 of 2 branches missed.">        } else if (accountType.equalsIgnoreCase(&quot;Savings&quot;)) {</span>
+<span class="fc" id="L142">            SavingsAccount savingsAccount = user.getSavingsAccount();</span>
+<span class="fc" id="L143">            savingsAccount.setAccountBalance(savingsAccount.getAccountBalance().subtract(new BigDecimal(amount)));</span>
+<span class="fc" id="L144">            savingsAccountDao.save(savingsAccount);</span>
+
+<span class="fc" id="L146">            Date date = new Date();</span>
+<span class="fc" id="L147">            SavingsTransaction savingsTransaction = new SavingsTransaction(date, &quot;Withdraw from savings Account&quot;, &quot;Account&quot;, &quot;Finished&quot;, amount, savingsAccount.getAccountBalance(), savingsAccount);</span>
+<span class="fc" id="L148">            transactionService.saveSavingsWithdrawTransaction(savingsTransaction);</span>
+<span class="fc" id="L149">            callBofaWithdraw();</span>
+        }
+<span class="fc" id="L151">    }</span>
+
+    private int accountGen() {
+<span class="fc" id="L154">        return ++nextAccountNumber;</span>
+    }
+
+	private void callBofaDeposit() {
+		try {
+<span class="fc" id="L159">			RestTemplate rest = new RestTemplate();</span>
+<span class="fc" id="L160">			String quote = rest.getForObject(EXTERNAL_BANK_URL + EXTERNAL_BANK_URL_DEPOSIT, String.class);</span>
+<span class="fc" id="L161">			L.info(&quot;bofa online deposit response: &quot; + quote);</span>
+<span class="nc" id="L162">		} catch (RestClientException e) {</span>
+<span class="nc" id="L163">			L.error(&quot;Rest call to Bofa-online deposit service failed.&quot;);</span>
+<span class="fc" id="L164">		}</span>
+<span class="fc" id="L165">	}</span>
+
+	private void callBofaWithdraw() {
+		try {
+<span class="fc" id="L169">			RestTemplate rest = new RestTemplate();</span>
+<span class="nc" id="L170">			String str = rest.getForObject(EXTERNAL_BANK_URL + EXTERNAL_BANK_URL_WITHDRAW, String.class);</span>
+<span class="nc" id="L171">			L.info(&quot;Bofa online response: &quot; + str);</span>
+<span class="fc" id="L172">		} catch (RestClientException e) {</span>
+<span class="fc" id="L173">			L.error(&quot;Rest call to Bofa-online withdraw service failed.&quot;);</span>
+<span class="nc" id="L174">		}</span>
+<span class="fc" id="L175">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

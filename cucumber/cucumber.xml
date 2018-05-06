@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<testsuite failures="0" name="cucumber.runtime.formatter.JUnitFormatter" skipped="0" tests="18" time="7.113376">
+<testcase classname="Check money deposited can be withdrawn from Checkings account in all possible cases" name="Check if the money deposited can be withdrawn from CheckingsAccount in all positive scenarios" time="1.913913">
+<system-out><![CDATA[Given Common user logged in.................................................passed
+And Initial balance in Checkings account is 1700.00.........................passed
+When Deposit money of 1000 dollars in CheckingsAccount......................passed
+And Withdraw money of 500 dollars from CheckingsAccount.....................passed
+Then Check remaining amount 2200.00 dollars in CheckingsAccount.............passed
+]]></system-out>
+</testcase>
+<testcase classname="Check money deposited can be withdrawn from Checkings account in all possible cases" name="Check if the money deposited can be withdrawn from CheckingsAccount in all positive scenarios 2" time="0.277927">
+<system-out><![CDATA[Given Common user logged in.................................................passed
+And Initial balance in Checkings account is 2200.00.........................passed
+When Deposit money of 1000000 dollars in CheckingsAccount...................passed
+And Withdraw money of 0 dollars from CheckingsAccount.......................passed
+Then Check remaining amount 1002200.00 dollars in CheckingsAccount..........passed
+]]></system-out>
+</testcase>
+<testcase classname="Check money deposited can be withdrawn from Checkings account in all possible cases" name="Check if the money deposited can be withdrawn from CheckingsAccount in all positive scenarios 3" time="0.278297">
+<system-out><![CDATA[Given Common user logged in.................................................passed
+And Initial balance in Checkings account is 1002200.00......................passed
+When Deposit money of 1000 dollars in CheckingsAccount......................passed
+And Withdraw money of 5000 dollars from CheckingsAccount....................passed
+Then Check remaining amount 998200.00 dollars in CheckingsAccount...........passed
+]]></system-out>
+</testcase>
+<testcase classname="Check money deposited can be withdrawn from Checkings account in all possible cases" name="Check if the money deposited can be withdrawn from CheckingsAccount in all positive scenarios 4" time="0.291609">
+<system-out><![CDATA[Given Common user logged in.................................................passed
+And Initial balance in Checkings account is 998200.00.......................passed
+When Deposit money of 0 dollars in CheckingsAccount.........................passed
+And Withdraw money of 998200.00 dollars from CheckingsAccount...............passed
+Then Check remaining amount 0.00 dollars in CheckingsAccount................passed
+]]></system-out>
+</testcase>
+<testcase classname="Check money deposited can be withdrawn from Checkings account in all possible cases" name="Check if overdraft is possible in CheckingsAccount" time="0.159484">
+<system-out><![CDATA[Given Common user logged in.................................................passed
+And Initial balance in Checkings account is 0.00............................passed
+And Withdraw money of 500 dollars from CheckingsAccount.....................passed
+Then Check remaining amount -500.00 dollars in CheckingsAccount.............passed
+]]></system-out>
+</testcase>
+<testcase classname="Check money deposited can be withdrawn from Checkings account in all possible cases" name="Check if huge amounts of money can be deposited and withdrawn in CheckingsAccount" time="0.266944">
+<system-out><![CDATA[Given Common user logged in.................................................passed
+And Initial balance in Checkings account is -500.00.........................passed
+When Deposit money of 1000 dollars in CheckingsAccount......................passed
+Then Check remaining amount 500.00 dollars in CheckingsAccount..............passed
+And Withdraw money of 0.00 dollars from CheckingsAccount....................passed
+]]></system-out>
+</testcase>
+<testcase classname="Check money deposited can be withdrawn from Checkings account in all possible cases" name="Check if huge amounts of money can be deposited and withdrawn in CheckingsAccount 2" time="0.259468">
+<system-out><![CDATA[Given Common user logged in.................................................passed
+And Initial balance in Checkings account is 500.00..........................passed
+When Deposit money of 1000000000000000 dollars in CheckingsAccount..........passed
+Then Check remaining amount 1000000000000500.00 dollars in CheckingsAccount.passed
+And Withdraw money of 1000000000000500.00 dollars from CheckingsAccount.....passed
+]]></system-out>
+</testcase>
+<testcase classname="Check of money deposited can be withdrawn from Savings account in all possible cases" name="Check if the money that is deposited money can be withdrawn from SavingsAccount in general cases" time="0.321897">
+<system-out><![CDATA[Given Common user logged in for Savings Account.............................passed
+And Initial balance in Savings account is 4250.00...........................passed
+When Deposit money of 1000 dollars in SavingsAccount........................passed
+And Withdraw money of 500 dollars from SavingsAccount.......................passed
+Then Check remaining amount 4750.00 dollars in SavingsAccount...............passed
+]]></system-out>
+</testcase>
+<testcase classname="Check of money deposited can be withdrawn from Savings account in all possible cases" name="Check if the money that is deposited money can be withdrawn from SavingsAccount in general cases 2" time="0.212056">
+<system-out><![CDATA[Given Common user logged in for Savings Account.............................passed
+And Initial balance in Savings account is 4750.00...........................passed
+When Deposit money of 1000000 dollars in SavingsAccount.....................passed
+And Withdraw money of 0 dollars from SavingsAccount.........................passed
+Then Check remaining amount 1004750.00 dollars in SavingsAccount............passed
+]]></system-out>
+</testcase>
+<testcase classname="Check of money deposited can be withdrawn from Savings account in all possible cases" name="Check if the money that is deposited money can be withdrawn from SavingsAccount in general cases 3" time="0.255198">
+<system-out><![CDATA[Given Common user logged in for Savings Account.............................passed
+And Initial balance in Savings account is 1004750.00........................passed
+When Deposit money of 1000 dollars in SavingsAccount........................passed
+And Withdraw money of 5000 dollars from SavingsAccount......................passed
+Then Check remaining amount 1000750.00 dollars in SavingsAccount............passed
+]]></system-out>
+</testcase>
+<testcase classname="Check of money deposited can be withdrawn from Savings account in all possible cases" name="Check if the money that is deposited money can be withdrawn from SavingsAccount in general cases 4" time="0.22747">
+<system-out><![CDATA[Given Common user logged in for Savings Account.............................passed
+And Initial balance in Savings account is 1000750.00........................passed
+When Deposit money of 0 dollars in SavingsAccount...........................passed
+And Withdraw money of 1000750.00 dollars from SavingsAccount................passed
+Then Check remaining amount 0.00 dollars in SavingsAccount..................passed
+]]></system-out>
+</testcase>
+<testcase classname="Check of money deposited can be withdrawn from Savings account in all possible cases" name="Check if overdraft is possible in SavingsAccount" time="0.180235">
+<system-out><![CDATA[Given Common user logged in for Savings Account.............................passed
+And Initial balance in Savings account is 0.00..............................passed
+And Withdraw money of 500 dollars from SavingsAccount.......................passed
+Then Check remaining amount -500.00 dollars in SavingsAccount...............passed
+]]></system-out>
+</testcase>
+<testcase classname="Check of money deposited can be withdrawn from Savings account in all possible cases" name="Check if large amounts of money can be deposited in SavingsAccount" time="0.253728">
+<system-out><![CDATA[Given Common user logged in for Savings Account.............................passed
+And Initial balance in Savings account is -500.00...........................passed
+When Deposit money of 1000 dollars in SavingsAccount........................passed
+Then Check remaining amount 500.00 dollars in SavingsAccount................passed
+And Check if transaction count of SavingsAccount is greater than 0..........passed
+And Withdraw money of 0.00 dollars from SavingsAccount......................passed
+]]></system-out>
+</testcase>
+<testcase classname="Check of money deposited can be withdrawn from Savings account in all possible cases" name="Check if large amounts of money can be deposited in SavingsAccount 2" time="0.32829">
+<system-out><![CDATA[Given Common user logged in for Savings Account.............................passed
+And Initial balance in Savings account is 500.00............................passed
+When Deposit money of 1000000000000000 dollars in SavingsAccount............passed
+Then Check remaining amount 1000000000000500.00 dollars in SavingsAccount...passed
+And Check if transaction count of SavingsAccount is greater than 0..........passed
+And Withdraw money of 1000000000000500.00 dollars from SavingsAccount.......passed
+]]></system-out>
+</testcase>
+<testcase classname="Check account transfer activities between own accounts" name="Check if the money can be transferred from Checkings account to Savings account" time="0.268721">
+<system-out><![CDATA[Given Common user logged in for account transfer............................passed
+And Initial balance in Savings account is 0.00..............................passed
+And Initial balance in Checkings account is 0.00............................passed
+When Deposit money of 1000 dollars in SavingsAccount........................passed
+And Transfer money of 500 from Savings to Checkings account.................passed
+Then Check remaining amount 500.00 dollars in SavingsAccount................passed
+And Check remaining amount 500.00 dollars in CheckingsAccount...............passed
+]]></system-out>
+</testcase>
+<testcase classname="Check if new users can be registered" name="Simple user registration" time="0.627568">
+<system-out><![CDATA[Given User registered with details Ravi, Kalla, 1111111111, ravi@ravi.com, ravi and ravi.passed
+When User logged in after registration with ravi and ravi...................passed
+Then Check if user details Ravi, Kalla, 1111111111, ravi@ravi.com, ravi and ravi are properly stored in DB.passed
+]]></system-out>
+</testcase>
+<testcase classname="Check if new users can be registered" name="Simple user registration 2" time="0.49169">
+<system-out><![CDATA[Given User registered with details Raj, Kumar, 2222222222, raj@raj.com, Raj and Raj.passed
+When User logged in after registration with Raj and Raj.....................passed
+Then Check if user details Raj, Kumar, 2222222222, raj@raj.com, Raj and Raj are properly stored in DB.passed
+]]></system-out>
+</testcase>
+<testcase classname="Check if new users can be registered" name="Simple user registration 3" time="0.498881">
+<system-out><![CDATA[Given User registered with details Matt, Damon, 3333333333, matt@matt.com, Matt and Matt.passed
+When User logged in after registration with Matt and Matt...................passed
+Then Check if user details Matt, Damon, 3333333333, matt@matt.com, Matt and Matt are properly stored in DB.passed
+]]></system-out>
+</testcase>
+</testsuite>

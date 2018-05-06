@@ -1,0 +1,9 @@
+in/ravikalla/cloudBank/utils/VirtualWebserviceTestREST.class
+in/ravikalla/cloudBank/stepdef/DepositCheckSavAccStep.class
+in/ravikalla/cloudBank/config/WebConfiguration.class
+in/ravikalla/cloudBank/stepdef/TransferActivitiesStep.class
+in/ravikalla/cloudBank/stepdef/UserRegistrationStep.class
+in/ravikalla/cloudBank/BDDTest.class
+in/ravikalla/cloudBank/utils/UserType.class
+in/ravikalla/cloudBank/utils/TestUtils.class
+in/ravikalla/cloudBank/stepdef/DepositCheckCheckAccStep.class

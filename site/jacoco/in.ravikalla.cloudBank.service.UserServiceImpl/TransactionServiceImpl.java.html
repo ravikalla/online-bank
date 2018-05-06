@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TransactionServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">online-bank</a> &gt; <a href="index.source.html" class="el_package">in.ravikalla.cloudBank.service.UserServiceImpl</a> &gt; <span class="el_source">TransactionServiceImpl.java</span></div><h1>TransactionServiceImpl.java</h1><pre class="source lang-java linenums">package in.ravikalla.cloudBank.service.UserServiceImpl;
+
+import java.math.BigDecimal;
+import java.security.Principal;
+import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import in.ravikalla.cloudBank.dao.PrimaryAccountDao;
+import in.ravikalla.cloudBank.dao.PrimaryTransactionDao;
+import in.ravikalla.cloudBank.dao.RecipientDao;
+import in.ravikalla.cloudBank.dao.SavingsAccountDao;
+import in.ravikalla.cloudBank.dao.SavingsTransactionDao;
+import in.ravikalla.cloudBank.domain.PrimaryAccount;
+import in.ravikalla.cloudBank.domain.PrimaryTransaction;
+import in.ravikalla.cloudBank.domain.Recipient;
+import in.ravikalla.cloudBank.domain.SavingsAccount;
+import in.ravikalla.cloudBank.domain.SavingsTransaction;
+import in.ravikalla.cloudBank.domain.User;
+import in.ravikalla.cloudBank.service.TransactionService;
+import in.ravikalla.cloudBank.service.UserService;
+
+@Service
+<span class="fc" id="L27">public class TransactionServiceImpl implements TransactionService {</span>
+	
+	@Autowired
+	private UserService userService;
+	
+	@Autowired
+	private PrimaryTransactionDao primaryTransactionDao;
+	
+	@Autowired
+	private SavingsTransactionDao savingsTransactionDao;
+	
+	@Autowired
+	private PrimaryAccountDao primaryAccountDao;
+	
+	@Autowired
+	private SavingsAccountDao savingsAccountDao;
+	
+	@Autowired
+	private RecipientDao recipientDao;
+	
+
+	public List&lt;PrimaryTransaction&gt; findPrimaryTransactionList(String username){
+<span class="fc" id="L49">        User user = userService.findByUsername(username);</span>
+<span class="fc" id="L50">        List&lt;PrimaryTransaction&gt; primaryTransactionList = user.getPrimaryAccount().getPrimaryTransactionList();</span>
+
+<span class="fc" id="L52">        return primaryTransactionList;</span>
+    }
+
+    public List&lt;SavingsTransaction&gt; findSavingsTransactionList(String username) {
+<span class="fc" id="L56">        User user = userService.findByUsername(username);</span>
+<span class="fc" id="L57">        List&lt;SavingsTransaction&gt; savingsTransactionList = user.getSavingsAccount().getSavingsTransactionList();</span>
+
+<span class="fc" id="L59">        return savingsTransactionList;</span>
+    }
+
+    public void savePrimaryDepositTransaction(PrimaryTransaction primaryTransaction) {
+<span class="fc" id="L63">        primaryTransactionDao.save(primaryTransaction);</span>
+<span class="fc" id="L64">    }</span>
+
+    public void saveSavingsDepositTransaction(SavingsTransaction savingsTransaction) {
+<span class="fc" id="L67">        savingsTransactionDao.save(savingsTransaction);</span>
+<span class="fc" id="L68">    }</span>
+    
+    public void savePrimaryWithdrawTransaction(PrimaryTransaction primaryTransaction) {
+<span class="fc" id="L71">        primaryTransactionDao.save(primaryTransaction);</span>
+<span class="fc" id="L72">    }</span>
+
+    public void saveSavingsWithdrawTransaction(SavingsTransaction savingsTransaction) {
+<span class="fc" id="L75">        savingsTransactionDao.save(savingsTransaction);</span>
+<span class="fc" id="L76">    }</span>
+    
+    public void betweenAccountsTransfer(String transferFrom, String transferTo, String amount, PrimaryAccount primaryAccount, SavingsAccount savingsAccount) throws Exception {
+<span class="pc bpc" id="L79" title="3 of 4 branches missed.">        if (transferFrom.equalsIgnoreCase(&quot;Primary&quot;) &amp;&amp; transferTo.equalsIgnoreCase(&quot;Savings&quot;)) {</span>
+<span class="nc" id="L80">            primaryAccount.setAccountBalance(primaryAccount.getAccountBalance().subtract(new BigDecimal(amount)));</span>
+<span class="nc" id="L81">            savingsAccount.setAccountBalance(savingsAccount.getAccountBalance().add(new BigDecimal(amount)));</span>
+<span class="nc" id="L82">            primaryAccountDao.save(primaryAccount);</span>
+<span class="nc" id="L83">            savingsAccountDao.save(savingsAccount);</span>
+
+<span class="nc" id="L85">            Date date = new Date();</span>
+
+<span class="nc" id="L87">            PrimaryTransaction primaryTransaction = new PrimaryTransaction(date, &quot;Between account transfer from &quot;+transferFrom+&quot; to &quot;+transferTo, &quot;Account&quot;, &quot;Finished&quot;, Double.parseDouble(amount), primaryAccount.getAccountBalance(), primaryAccount);</span>
+<span class="nc" id="L88">            primaryTransactionDao.save(primaryTransaction);</span>
+<span class="pc bpc" id="L89" title="2 of 4 branches missed.">        } else if (transferFrom.equalsIgnoreCase(&quot;Savings&quot;) &amp;&amp; transferTo.equalsIgnoreCase(&quot;Primary&quot;)) {</span>
+<span class="fc" id="L90">            primaryAccount.setAccountBalance(primaryAccount.getAccountBalance().add(new BigDecimal(amount)));</span>
+<span class="fc" id="L91">            savingsAccount.setAccountBalance(savingsAccount.getAccountBalance().subtract(new BigDecimal(amount)));</span>
+<span class="fc" id="L92">            primaryAccountDao.save(primaryAccount);</span>
+<span class="fc" id="L93">            savingsAccountDao.save(savingsAccount);</span>
+
+<span class="fc" id="L95">            Date date = new Date();</span>
+
+<span class="fc" id="L97">            SavingsTransaction savingsTransaction = new SavingsTransaction(date, &quot;Between account transfer from &quot;+transferFrom+&quot; to &quot;+transferTo, &quot;Transfer&quot;, &quot;Finished&quot;, Double.parseDouble(amount), savingsAccount.getAccountBalance(), savingsAccount);</span>
+<span class="fc" id="L98">            savingsTransactionDao.save(savingsTransaction);</span>
+<span class="fc" id="L99">        } else {</span>
+<span class="nc" id="L100">            throw new Exception(&quot;Invalid Transfer&quot;);</span>
+        }
+<span class="fc" id="L102">    }</span>
+    
+    public List&lt;Recipient&gt; findRecipientList(Principal principal) {
+<span class="nc" id="L105">        String username = principal.getName();</span>
+<span class="nc" id="L106">        List&lt;Recipient&gt; recipientList = recipientDao.findAll().stream() 			</span>
+<span class="nc" id="L107">                .filter(recipient -&gt; username.equals(recipient.getUser().getUsername()))	</span>
+<span class="nc" id="L108">                .collect(Collectors.toList());</span>
+
+<span class="nc" id="L110">        return recipientList;</span>
+    }
+
+    public Recipient saveRecipient(Recipient recipient) {
+<span class="nc" id="L114">        return recipientDao.save(recipient);</span>
+    }
+
+    public Recipient findRecipientByName(String recipientName) {
+<span class="nc" id="L118">        return recipientDao.findByName(recipientName);</span>
+    }
+
+    public void deleteRecipientByName(String recipientName) {
+<span class="nc" id="L122">        recipientDao.deleteByName(recipientName);</span>
+<span class="nc" id="L123">    }</span>
+    
+    public void toSomeoneElseTransfer(Recipient recipient, String accountType, String amount, PrimaryAccount primaryAccount, SavingsAccount savingsAccount) {
+<span class="nc bnc" id="L126" title="All 2 branches missed.">        if (accountType.equalsIgnoreCase(&quot;Primary&quot;)) {</span>
+<span class="nc" id="L127">            primaryAccount.setAccountBalance(primaryAccount.getAccountBalance().subtract(new BigDecimal(amount)));</span>
+<span class="nc" id="L128">            primaryAccountDao.save(primaryAccount);</span>
+
+<span class="nc" id="L130">            Date date = new Date();</span>
+
+<span class="nc" id="L132">            PrimaryTransaction primaryTransaction = new PrimaryTransaction(date, &quot;Transfer to recipient &quot;+recipient.getName(), &quot;Transfer&quot;, &quot;Finished&quot;, Double.parseDouble(amount), primaryAccount.getAccountBalance(), primaryAccount);</span>
+<span class="nc" id="L133">            primaryTransactionDao.save(primaryTransaction);</span>
+<span class="nc bnc" id="L134" title="All 2 branches missed.">        } else if (accountType.equalsIgnoreCase(&quot;Savings&quot;)) {</span>
+<span class="nc" id="L135">            savingsAccount.setAccountBalance(savingsAccount.getAccountBalance().subtract(new BigDecimal(amount)));</span>
+<span class="nc" id="L136">            savingsAccountDao.save(savingsAccount);</span>
+
+<span class="nc" id="L138">            Date date = new Date();</span>
+
+<span class="nc" id="L140">            SavingsTransaction savingsTransaction = new SavingsTransaction(date, &quot;Transfer to recipient &quot;+recipient.getName(), &quot;Transfer&quot;, &quot;Finished&quot;, Double.parseDouble(amount), savingsAccount.getAccountBalance(), savingsAccount);</span>
+<span class="nc" id="L141">            savingsTransactionDao.save(savingsTransaction);</span>
+        }
+<span class="nc" id="L143">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

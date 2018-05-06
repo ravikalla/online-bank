@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>User.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">online-bank</a> &gt; <a href="index.source.html" class="el_package">in.ravikalla.cloudBank.domain</a> &gt; <span class="el_source">User.java</span></div><h1>User.java</h1><pre class="source lang-java linenums">package in.ravikalla.cloudBank.domain;
+
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import in.ravikalla.cloudBank.domain.security.Authority;
+import in.ravikalla.cloudBank.domain.security.UserRole;
+
+@Entity
+<span class="fc" id="L26">public class User implements UserDetails{</span>
+
+	private static final long serialVersionUID = 2380502806173668567L;
+	@Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = &quot;userId&quot;, nullable = false, updatable = false)
+    private Long userId;
+    private String username;
+    private String password;
+    private String firstName;
+    private String lastName;
+
+    @Column(name = &quot;email&quot;, nullable = false, unique = true)
+    private String email;
+    private String phone;
+
+<span class="fc" id="L42">    private boolean enabled=true;</span>
+
+    @OneToOne
+    private PrimaryAccount primaryAccount;
+
+    @OneToOne
+    private SavingsAccount savingsAccount;
+
+    @OneToMany(mappedBy = &quot;user&quot;, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List&lt;Appointment&gt; appointmentList;
+
+    @OneToMany(mappedBy = &quot;user&quot;, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List&lt;Recipient&gt; recipientList;
+
+<span class="fc" id="L57">    @OneToMany(mappedBy = &quot;user&quot;, cascade = CascadeType.ALL, fetch = FetchType.EAGER)</span>
+    @JsonIgnore
+    private Set&lt;UserRole&gt; userRoles = new HashSet&lt;&gt;();
+
+    public Set&lt;UserRole&gt; getUserRoles() {
+<span class="fc" id="L62">        return userRoles;</span>
+    }
+
+    public void setUserRoles(Set&lt;UserRole&gt; userRoles) {
+<span class="fc" id="L66">        this.userRoles = userRoles;</span>
+<span class="fc" id="L67">    }</span>
+
+    public Long getUserId() {
+<span class="fc" id="L70">        return userId;</span>
+    }
+
+    public void setUserId(Long userId) {
+<span class="nc" id="L74">        this.userId = userId;</span>
+<span class="nc" id="L75">    }</span>
+
+    public String getUsername() {
+<span class="fc" id="L78">        return username;</span>
+    }
+
+    public void setUsername(String username) {
+<span class="fc" id="L82">        this.username = username;</span>
+<span class="fc" id="L83">    }</span>
+
+    public String getFirstName() {
+<span class="fc" id="L86">        return firstName;</span>
+    }
+
+    public void setFirstName(String firstName) {
+<span class="fc" id="L90">        this.firstName = firstName;</span>
+<span class="fc" id="L91">    }</span>
+
+    public String getLastName() {
+<span class="fc" id="L94">        return lastName;</span>
+    }
+
+    public void setLastName(String lastName) {
+<span class="fc" id="L98">        this.lastName = lastName;</span>
+<span class="fc" id="L99">    }</span>
+
+    public String getEmail() {
+<span class="fc" id="L102">        return email;</span>
+    }
+
+    public void setEmail(String email) {
+<span class="fc" id="L106">        this.email = email;</span>
+<span class="fc" id="L107">    }</span>
+
+    public String getPhone() {
+<span class="fc" id="L110">        return phone;</span>
+    }
+
+    public void setPhone(String phone) {
+<span class="fc" id="L114">        this.phone = phone;</span>
+<span class="fc" id="L115">    }</span>
+
+    public List&lt;Appointment&gt; getAppointmentList() {
+<span class="nc" id="L118">        return appointmentList;</span>
+    }
+
+    public void setAppointmentList(List&lt;Appointment&gt; appointmentList) {
+<span class="nc" id="L122">        this.appointmentList = appointmentList;</span>
+<span class="nc" id="L123">    }</span>
+
+    public List&lt;Recipient&gt; getRecipientList() {
+<span class="nc" id="L126">        return recipientList;</span>
+    }
+
+    public void setRecipientList(List&lt;Recipient&gt; recipientList) {
+<span class="nc" id="L130">        this.recipientList = recipientList;</span>
+<span class="nc" id="L131">    }</span>
+
+    public String getPassword() {
+<span class="fc" id="L134">        return password;</span>
+    }
+
+    public void setPassword(String password) {
+<span class="fc" id="L138">        this.password = password;</span>
+<span class="fc" id="L139">    }</span>
+
+    public PrimaryAccount getPrimaryAccount() {
+<span class="fc" id="L142">        return primaryAccount;</span>
+    }
+
+    public void setPrimaryAccount(PrimaryAccount primaryAccount) {
+<span class="fc" id="L146">        this.primaryAccount = primaryAccount;</span>
+<span class="fc" id="L147">    }</span>
+
+    public SavingsAccount getSavingsAccount() {
+<span class="fc" id="L150">        return savingsAccount;</span>
+    }
+
+    public void setSavingsAccount(SavingsAccount savingsAccount) {
+<span class="fc" id="L154">        this.savingsAccount = savingsAccount;</span>
+<span class="fc" id="L155">    }</span>
+
+    public void setEnabled(boolean enabled) {
+<span class="fc" id="L158">        this.enabled = enabled;</span>
+<span class="fc" id="L159">    }</span>
+
+    @Override
+    public String toString() {
+<span class="nc" id="L163">        return &quot;User{&quot; +</span>
+                &quot;userId=&quot; + userId +
+                &quot;, username='&quot; + username + '\'' +
+                &quot;, password='&quot; + password + '\'' +
+                &quot;, firstName='&quot; + firstName + '\'' +
+                &quot;, lastName='&quot; + lastName + '\'' +
+                &quot;, email='&quot; + email + '\'' +
+                &quot;, phone='&quot; + phone + '\'' +
+                &quot;, appointmentList=&quot; + appointmentList +
+                &quot;, recipientList=&quot; + recipientList +
+                &quot;, userRoles=&quot; + userRoles +
+                '}';
+    }
+
+    @Override
+    public Collection&lt;? extends GrantedAuthority&gt; getAuthorities() {
+<span class="nc" id="L179">        Set&lt;GrantedAuthority&gt; authorities = new HashSet&lt;&gt;();</span>
+<span class="nc" id="L180">        userRoles.forEach(ur -&gt; authorities.add(new Authority(ur.getRole().getName())));</span>
+<span class="nc" id="L181">        return authorities;</span>
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        // TODO Auto-generated method stub
+<span class="nc" id="L187">        return true;</span>
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        // TODO Auto-generated method stub
+<span class="nc" id="L193">        return true;</span>
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        // TODO Auto-generated method stub
+<span class="nc" id="L199">        return true;</span>
+    }
+
+    @Override
+    public boolean isEnabled() {
+<span class="nc" id="L204">        return enabled;</span>
+    }
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

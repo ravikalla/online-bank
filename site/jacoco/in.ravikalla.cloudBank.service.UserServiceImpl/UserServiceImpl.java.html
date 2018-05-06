@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">online-bank</a> &gt; <a href="index.source.html" class="el_package">in.ravikalla.cloudBank.service.UserServiceImpl</a> &gt; <span class="el_source">UserServiceImpl.java</span></div><h1>UserServiceImpl.java</h1><pre class="source lang-java linenums">package in.ravikalla.cloudBank.service.UserServiceImpl;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
+
+import in.ravikalla.cloudBank.dao.RoleDao;
+import in.ravikalla.cloudBank.dao.UserDao;
+import in.ravikalla.cloudBank.domain.User;
+import in.ravikalla.cloudBank.domain.security.UserRole;
+import in.ravikalla.cloudBank.service.AccountService;
+import in.ravikalla.cloudBank.service.UserService;
+
+@Service
+@Transactional
+<span class="fc" id="L25">public class UserServiceImpl implements UserService {</span>
+	
+<span class="fc" id="L27">	private static final Logger LOG = LoggerFactory.getLogger(UserService.class);</span>
+	
+	@Autowired
+	private UserDao userDao;
+	
+	@Autowired
+    private RoleDao roleDao;
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+    
+    @Autowired
+    private AccountService accountService;
+	
+	public void save(User user) {
+<span class="nc" id="L42">        userDao.save(user);</span>
+<span class="nc" id="L43">    }</span>
+
+    public User findByUsername(String username) {
+<span class="fc" id="L46">        return userDao.findByUsername(username);</span>
+    }
+
+    public User findByEmail(String email) {
+<span class="fc" id="L50">        return userDao.findByEmail(email);</span>
+    }
+    
+    
+    public User createUser(User user, Set&lt;UserRole&gt; userRoles) {
+<span class="fc" id="L55">        User localUser = userDao.findByUsername(user.getUsername());</span>
+
+<span class="pc bpc" id="L57" title="1 of 2 branches missed.">        if (localUser != null) {</span>
+<span class="nc" id="L58">            LOG.info(&quot;User with username {} already exist. Nothing will be done. &quot;, user.getUsername());</span>
+        } else {
+<span class="fc" id="L60">            String encryptedPassword = passwordEncoder.encode(user.getPassword());</span>
+<span class="fc" id="L61">            user.setPassword(encryptedPassword);</span>
+
+<span class="fc" id="L63">            Set&lt;UserRole&gt; setUserRoles = user.getUserRoles();</span>
+<span class="pc bpc" id="L64" title="1 of 2 branches missed.">            if (null == setUserRoles)</span>
+<span class="nc" id="L65">            		setUserRoles = new HashSet&lt;UserRole&gt;();</span>
+<span class="fc" id="L66">            	setUserRoles.addAll(userRoles);</span>
+<span class="fc" id="L67">            	user.setUserRoles(setUserRoles);</span>
+
+<span class="fc bfc" id="L69" title="All 2 branches covered.">            for (UserRole ur : userRoles) {</span>
+<span class="fc" id="L70">                roleDao.save(ur.getRole());</span>
+<span class="fc" id="L71">            }</span>
+
+<span class="fc" id="L73">            user.setPrimaryAccount(accountService.createPrimaryAccount());</span>
+<span class="fc" id="L74">            user.setSavingsAccount(accountService.createSavingsAccount());</span>
+
+<span class="fc" id="L76">            localUser = userDao.save(user);</span>
+        }
+
+<span class="fc" id="L79">        return localUser;</span>
+    }
+    
+    public boolean checkUserExists(String username, String email){
+<span class="pc bpc" id="L83" title="2 of 4 branches missed.">        return (checkUsernameExists(username) || checkEmailExists(username));</span>
+    }
+
+    public boolean checkUsernameExists(String username) {
+<span class="pc bpc" id="L87" title="1 of 2 branches missed.">        return (null != findByUsername(username));</span>
+    }
+    
+    public boolean checkEmailExists(String email) {
+<span class="pc bpc" id="L91" title="1 of 2 branches missed.">        return (null != findByEmail(email));</span>
+    }
+
+    public User saveUser (User user) {
+<span class="nc" id="L95">        return userDao.save(user);</span>
+    }
+    
+    public List&lt;User&gt; findUserList() {
+<span class="nc" id="L99">        return userDao.findAll();</span>
+    }
+
+    public void enableUser (String username) {
+<span class="nc" id="L103">        User user = findByUsername(username);</span>
+<span class="nc" id="L104">        user.setEnabled(true);</span>
+<span class="nc" id="L105">        userDao.save(user);</span>
+<span class="nc" id="L106">    }</span>
+
+    public void disableUser (String username) {
+<span class="nc" id="L109">        User user = findByUsername(username);</span>
+<span class="nc" id="L110">        user.setEnabled(false);</span>
+<span class="nc" id="L111">        System.out.println(user.isEnabled());</span>
+<span class="nc" id="L112">        userDao.save(user);</span>
+<span class="nc" id="L113">        System.out.println(username + &quot; is disabled.&quot;);</span>
+<span class="nc" id="L114">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>
