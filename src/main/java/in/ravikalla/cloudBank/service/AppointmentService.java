@@ -1,6 +1,7 @@
 package in.ravikalla.cloudBank.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import in.ravikalla.cloudBank.domain.Appointment;
 
@@ -10,7 +11,7 @@ public interface AppointmentService {
 
     List<Appointment> findAll();
 
-    Appointment findAppointment(Long id);
+    Optional<Appointment> findAppointment(Long id);
 
     void confirmAppointment(Long id);
 }
