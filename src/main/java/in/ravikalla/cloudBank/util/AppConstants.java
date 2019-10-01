@@ -26,4 +26,6 @@ public class AppConstants {
 	public static final String EXTERNAL_BANK_URL = "http://localhost:7001";
 	public static final String EXTERNAL_BANK_URL_DEPOSIT = "/bofa/deposit";
 	public static final String EXTERNAL_BANK_URL_WITHDRAW = "/bofa/withdraw";
+
+	public static final String URL_TEST_APP = "http://localhost:8888";
 }
