@@ -38,3 +38,4 @@ Scenario Outline: Check if huge amounts of money can be deposited and withdrawn 
 		|InitialBalance|DepositAmount   |RemainingAmount    |WithdrawAmount     |
 		|-500.00       |1000            |500.00             |0.00               |
 		|500.00        |1000000000000000|1000000000000500.00|1000000000000500.00|
+
