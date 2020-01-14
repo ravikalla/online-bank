@@ -17,4 +17,4 @@ ADD src /code/src
 RUN ["mvn", "package"]
 
 EXPOSE 8080
-CMD ["/usr/lib/jvm/java-8-openjdk-amd64/bin/java", "-jar", "target/online-bank-0.0.1-SNAPSHOT.jar"]
+CMD ["java", "-jar", "target/online-bank-0.0.1-SNAPSHOT.jar"]
