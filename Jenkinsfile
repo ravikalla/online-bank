@@ -1,5 +1,8 @@
 pipeline {
-    agent any 
+    agent any
+    parameters {
+        string(name: 'MYSQL_ROOT_PASSWORD', defaultValue: 'root', description: 'MySQL password')
+    }
     stages {
         stage ("Initialize Jenkins Env") {
          steps {
@@ -41,9 +44,10 @@ pipeline {
             //    sh 'docker rm bankmysql 2> /dev/null'
             //    sh 'docker rm cloudbank 2> /dev/null'
                 sh 'docker stop bankmysql || true && docker rm bankmysql || true'
-                sh 'docker run --detach --name=bankmysql --env="MYSQL_ROOT_PASSWORD=root" -p 3306:3306 mysql'
+                sh 'docker run --detach --name=bankmysql --env="MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD" -p 3306:3306 mysql'
                 sh 'sleep 10'
-                sh 'docker exec -i bankmysql mysql -uroot -proot < sql_dump/onlinebanking.sql'
+            //  sh 'docker exec -i bankmysql mysql -uroot -proot < sql_dump/onlinebanking.sql'
+                sh 'docker exec -i bankmysql mysql -uroot -p$MYSQL_ROOT_PASSWORD" < sql_dump/onlinebanking.sql'
             }
         }
         stage('Deploy and Run') {
