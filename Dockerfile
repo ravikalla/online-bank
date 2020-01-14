@@ -1,8 +1,9 @@
-FROM openjdk
+#FROM openjdk
+FROM maven
 
-# Install maven
-RUN apt-get update
-RUN apt-get install -y maven
+## Install maven
+#RUN apt-get update
+#RUN apt-get install -y maven
 
 WORKDIR /code
 
