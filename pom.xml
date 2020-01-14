@@ -250,6 +250,7 @@
 				  </execution>
 				</executions>
 			</plugin>
+<!--
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
@@ -269,6 +270,7 @@
 					</execution>
 				</executions>
 			</plugin>
+-->
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>cobertura-maven-plugin</artifactId>
