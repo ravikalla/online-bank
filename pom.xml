@@ -15,7 +15,7 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>1.4.1.RELEASE</version>
-		<relativePath /> <!-- lookup parent from repository -->
+		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
 	<properties>
@@ -197,7 +197,7 @@
 		<dependency>
 		    <groupId>com.aventstack</groupId>
 		    <artifactId>extentreports</artifactId>
-		    <version>3.1.2</version>
+		    <version>5.1.0</version>
 		    <scope>provided</scope>
 		</dependency>
 
@@ -284,7 +284,7 @@
 						<format>html</format>
 						<format>xml</format>
 					</formats>
-					<check />
+					<check/>
 				</configuration>
 			</plugin>
 		</plugins>
